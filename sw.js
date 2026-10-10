@@ -1,4 +1,4 @@
-const VERSION = 'kstep-v3';
+const VERSION = 'kstep-v4';
 const SHELL = ['./', './index.html', './manifest.json', './questions.json', './icon.svg'];
 
 const API_HOSTS = ['script.google.com', 'script.googleusercontent.com'];
