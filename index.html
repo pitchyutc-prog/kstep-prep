@@ -1,0 +1,1370 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1f5fbf">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="K-StEP Prep">
+<title>K-StEP Prep</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+:root{--bg:#f5f7fa;--card:#fff;--text:#111827;--muted:#4b5563;--pri:#1f5fbf;--pri-ink:#fff;--soft:#e8f0fc;--ok:#137a45;--ok-bg:#e3f5ea;--bad:#b42318;--bad-bg:#fdeceb;--warn:#9a5b00;--line:#d9dee5;--r:14px;--shadow:0 1px 3px rgba(0,0,0,.06)}
+[data-theme="dark"]{--bg:#0e1217;--card:#171d25;--text:#e9eef4;--muted:#a7b1bd;--pri:#7fa8ff;--pri-ink:#0b1220;--soft:#1c2736;--ok:#5ad391;--ok-bg:#12291d;--bad:#ff8a80;--bad-bg:#2e1716;--warn:#f5c04d;--line:#2a333f;--shadow:none}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Thai",Sarabun,sans-serif;overflow-x:hidden}
+#app{max-width:560px;margin:0 auto;padding:16px 16px calc(120px + env(safe-area-inset-bottom))}
+h1{font-size:1.5rem;margin:.2em 0 .4em;line-height:1.3}
+h2{font-size:1.2rem;margin:1.2em 0 .5em}
+h3{font-size:1.06rem;margin:0 0 .4em}
+p{margin:.4em 0}
+.muted{color:var(--muted)}
+.ell{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin:12px 0;box-shadow:var(--shadow)}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:52px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-weight:600;cursor:pointer;text-align:center}
+.btn.pri{background:var(--pri);color:var(--pri-ink);border-color:var(--pri)}
+.btn.ghost{background:transparent}
+.btn.flagged{border:2px solid var(--warn);color:var(--warn)}
+.btn:disabled{opacity:.45;cursor:default}
+.btn:active,.mode:active,.choice:active{transform:scale(.985)}
+.row{display:flex;gap:10px}
+.row>*{flex:1}
+.stack>*+*{margin-top:8px}
+.space{height:10px}
+.mode{display:flex;gap:14px;align-items:center;text-align:left;width:100%;padding:16px;border-radius:var(--r);border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;margin:10px 0;cursor:pointer;min-height:80px;box-shadow:var(--shadow)}
+.mode:disabled{opacity:.5;cursor:default}
+.mode .ic{font-size:1.6rem;width:48px;height:48px;border-radius:12px;background:var(--soft);display:grid;place-items:center;flex:none}
+.mode b{display:block;font-size:1.06rem}
+.mode .muted{display:block}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;color:var(--text);font:inherit;text-align:left}
+.stat .v{font-size:1.45rem;font-weight:700}
+.nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom));z-index:10}
+.nav button{flex:1;min-width:0;background:none;border:0;color:var(--muted);font:inherit;font-size:16px;display:flex;flex-direction:column;align-items:center;padding:4px 2px;min-height:58px;border-radius:10px;cursor:pointer;white-space:nowrap}
+.nav .i{font-size:1.3rem;line-height:1.3}
+.nav button.on{color:var(--pri);font-weight:700;background:var(--soft)}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);padding:10px 12px calc(10px + env(safe-area-inset-bottom));z-index:10}
+.bar .in{max-width:560px;margin:0 auto;display:flex;gap:8px}
+.bar .btn{min-height:56px}
+.top{position:sticky;top:0;z-index:5;background:var(--bg);margin:-16px -16px 8px;padding:10px 16px}
+.iconbtn{min-width:52px;min-height:52px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-size:1.1rem;cursor:pointer}
+.iconbtn:disabled{opacity:.45}
+.prog{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:8px}
+.prog>i{display:block;height:100%;background:var(--pri);border-radius:99px;transition:width .2s}
+.timer{font-variant-numeric:tabular-nums;font-weight:700}
+.timer.low{color:var(--bad)}
+.passage{white-space:pre-wrap;background:var(--soft);border-radius:12px;padding:14px;margin:8px 0;max-height:45vh;overflow:auto}
+.q{font-size:1.1rem;font-weight:600;margin:12px 0}
+.choice{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;padding:14px;margin:8px 0;min-height:58px;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--text);font:inherit;cursor:pointer}
+.choice .k{flex:none;width:30px;height:30px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-weight:700}
+.choice.sel{border-color:var(--pri);background:var(--soft)}
+.choice.sel .k{background:var(--pri);color:var(--pri-ink);border-color:var(--pri)}
+.choice.ok{border-color:var(--ok);background:var(--ok-bg)}
+.choice.bad{border-color:var(--bad);background:var(--bad-bg)}
+.fb{border-left:4px solid var(--pri);padding:10px 12px;background:var(--card);border-radius:8px;margin:10px 0}
+.fb.ok{border-color:var(--ok)}.fb.bad{border-color:var(--bad)}
+.ok-t{color:var(--ok)}.bad-t{color:var(--bad)}
+.audio{display:flex;gap:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(52px,1fr));gap:8px}
+.grid button{min-height:52px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-weight:600;position:relative}
+.grid button.ans{background:var(--soft);border-color:var(--pri)}
+.grid button.cur{outline:3px solid var(--pri)}
+.grid button.flag{border:2px solid var(--warn)}
+.sheet{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:20;display:flex;align-items:flex-end}
+.sheet .panel{background:var(--bg);width:100%;max-width:560px;margin:0 auto;max-height:82vh;overflow:auto;border-radius:18px 18px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom))}
+.hbar{display:flex;align-items:center;gap:10px;margin:8px 0}
+.hbar .lbl{flex:0 0 42%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hbar .track{flex:1;height:12px;background:var(--line);border-radius:99px;overflow:hidden}
+.hbar .track i{display:block;height:100%;background:var(--pri)}
+.hbar .val{flex:none;min-width:64px;text-align:right;font-variant-numeric:tabular-nums}
+.linkrow{width:100%;background:none;border:0;color:inherit;font:inherit;padding:6px 0;text-align:left;min-height:52px;cursor:pointer}
+.chart{width:100%;height:auto;display:block}
+.task{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.task:last-child{border-bottom:0}
+.task label{display:flex;gap:12px;align-items:center;flex:1;min-height:44px;cursor:pointer}
+.task input{width:26px;height:26px;accent-color:var(--pri);flex:none}
+.task .btn{width:auto;min-height:52px;flex:none}
+.day.past{opacity:.6}
+.day.today{border:2px solid var(--pri)}
+.flash{min-height:260px;display:flex;flex-direction:column;justify-content:center;text-align:center;cursor:pointer}
+.flash .w{font-size:2rem;font-weight:700}
+input[type=date],input[type=text]{width:100%;min-height:52px;font:inherit;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--text)}
+.seg{display:flex;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.seg button{flex:1;min-width:0;min-height:52px;border:0;background:var(--card);color:var(--text);font:inherit;cursor:pointer;padding:0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seg button.on{background:var(--pri);color:var(--pri-ink);font-weight:700}
+table{width:100%;border-collapse:collapse}
+td,th{padding:8px 4px;border-bottom:1px solid var(--line);text-align:left}
+.big{font-size:2.6rem;font-weight:800;line-height:1.15}
+details summary{cursor:pointer;min-height:52px;display:flex;align-items:center;font-weight:600}
+.toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 16px;border-radius:10px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:30;max-width:90vw;text-align:center}
+.toast.on{opacity:1}
+/* ---- Friends (Phase A) ---- */
+.codein{text-transform:uppercase;letter-spacing:.3em;font-weight:700;text-align:center}
+.avgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(56px,1fr));gap:8px}
+.avopt{position:relative;display:block}
+.avopt input{position:absolute;opacity:0;width:1px;height:1px}
+.avopt span{display:grid;place-items:center;height:56px;font-size:1.7rem;border:2px solid var(--line);border-radius:12px;background:var(--card);cursor:pointer}
+.avopt input:checked+span{border-color:var(--pri);background:var(--soft)}
+.avopt input:focus-visible+span{outline:3px solid var(--pri);outline-offset:2px}
+.pchip{display:flex;align-items:center;gap:10px}
+.avbig{font-size:2rem;width:56px;height:56px;display:grid;place-items:center;background:var(--soft);border-radius:50%;flex:none}
+.lb{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--line)}
+.lb:last-child{border-bottom:0}
+.lb.me{background:var(--soft);border-radius:12px;padding:10px 8px;margin:0 -8px}
+.lb .rk{flex:0 0 34px;text-align:center;font-weight:700}
+.lb .av{flex:0 0 40px;height:40px;display:grid;place-items:center;font-size:1.5rem;background:var(--soft);border-radius:50%}
+.lb .lbm{flex:1;min-width:0}
+.lb .pts{flex:none;text-align:right;line-height:1.2}
+.lb .pts b{display:block;font-size:1.15rem}
+.lb .iconbtn{flex:none}
+.codebox{font:700 2rem/1.2 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.25em;text-align:center;padding:10px;margin:6px 0 10px;border:2px dashed var(--line);border-radius:12px;user-select:all}
+.cheers{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.switch{display:flex;gap:12px;align-items:flex-start;min-height:52px;cursor:pointer}
+.switch input{width:26px;height:26px;flex:none;accent-color:var(--pri);margin-top:3px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}.btn:active,.mode:active,.choice:active{transform:none}}
+</style>
+</head>
+<body>
+<main id="app" aria-live="polite"></main>
+<nav id="nav" class="nav" aria-label="Main"></nav>
+<div id="toast" class="toast" role="status"></div>
+
+<script>
+'use strict';
+/* =========================================================
+   1) EXAM CONFIG — change counts / time / options here
+   ========================================================= */
+const CONFIG = {
+  totalPoints: 100,
+  totalMinutes: 180,                 // full mock exam time (for the full 100-item spec)
+  parts: [
+    { id: 1, en: 'Listening',         th: 'การฟัง',                 count: 30, minutes: 45, icon: '🎧' },
+    { id: 2, en: 'Reading',           th: 'การอ่าน',                count: 30, minutes: 75, icon: '📖' },
+    { id: 3, en: 'Structure & Usage', th: 'โครงสร้างและการใช้ภาษา', count: 40, minutes: 60, icon: '✍️' }
+  ],
+  practiceSize: 10,                  // questions per quick practice
+  maxPlaysTimed: 2,                  // audio plays per item in mock/timed part test (0 = unlimited)
+  maxPlaysPractice: 0,               // audio plays in practice/review (0 = unlimited)
+  ttsRate: 0.95,                     // speech speed for synthesized voice
+  planMaxDays: 120,
+  leitnerDays: [1, 2, 4, 8, 16],     // review gap (days) for Leitner box 1..5
+  newCardsPerDay: 10,
+  questionsUrl: 'questions.json',
+
+  /* ---- Friends / squads (online) ---- */
+  apiUrl: '',                        // ← PASTE YOUR APPS SCRIPT WEB APP URL HERE (e.g. 'https://script.google.com/macros/s/.../exec')
+  social: {
+    timeoutMs: 8000,                 // per request
+    cacheMs: 30000,                  // in-memory cache of squad data
+    syncBatch: 150,                  // answers per syncPractice call (server max 200)
+    pendingMax: 600,                 // max answers kept in the offline queue
+    nameMax: 16,
+    avatars: ['🐯','🐼','🦊','🐸','🐧','🦉','🐙','🦄','🐨','🐶','🐱','🐰','🐻','🐵','🐳','🦖'],
+    cheers: [
+      { e: '🔥', th: 'สู้ ๆ',          en: 'You got this' },
+      { e: '👏', th: 'เก่งมาก',        en: 'Great job' },
+      { e: '💪', th: 'อีกนิดเดียว',     en: 'Almost there' },
+      { e: '📚', th: 'มาอ่านด้วยกัน',   en: "Let's study" },
+      { e: '🎯', th: 'แม่นมาก',        en: 'Sharp!' },
+      { e: '🌟', th: 'ภูมิใจในตัวเธอ',  en: 'Proud of you' }
+    ]
+  }
+};
+
+/* =========================================================
+   2) UI TEXT
+   ========================================================= */
+const I18N = {
+  en: {
+    hello:'Ready to practice?', tagline:'K-StEP style English prep, a little every day.',
+    streak:'Study streak', examIn:'Exam in', daysN:'{0} days', setDate:'Set date',
+    bankErr:'Could not load questions.json. Open the app through a web server (e.g. GitHub Pages), not as a local file.',
+    resume:'Resume unfinished session', modes:'Choose a mode',
+    m1:'Practice by part', m1d:'Instant feedback with explanations',
+    m2:'Full mock exam', m2d:'Timed, all parts, results at the end',
+    m3:'Review mistakes', m3d:'{0} questions to fix',
+    flashcards:'Vocabulary flashcards', dueN:'{0} cards due today',
+    todayPlan:"Today's plan", tasksDone:'{0}/{1} tasks done',
+    practiceHelp:'Quick practice shows the answer after each question. A timed part test uses the part time limit and shows results at the end.',
+    part:'Part', inBank:'{0} in bank', acc:'Accuracy', quick:'Quick practice · {0} Q', timedTest:'Timed test · {0} Q / {1} min',
+    start:'Start', mockRules:'Time limit: {0} minutes. No feedback until you submit. Auto-submits when time runs out.',
+    mockScaled:'Your bank has {0} of {1} questions, so time and score are scaled proportionally.',
+    qOf:'Question {0} of {1}', exit:'Exit', overview:'Question overview',
+    playsLeft:'Plays left: {0}/{1}', unlimited:'Unlimited replays (practice)', ttsNote:'synthesized voice',
+    replay:'Replay', play:'Play', pause:'Pause', resume2:'Resume', stop:'Stop',
+    back:'Back', flag:'Flag', next:'Next', submit:'Submit', finish:'Finish', answeredN:'Answered {0}/{1}', close:'Close',
+    unanswered:'Not answered', correct:'Correct', incorrect:'Incorrect', answerIs:'Answer:', transcript:'Show transcript',
+    submitConfirm:'Submit now?\nUnanswered: {0}\nFlagged: {1}', quitConfirm:'Exit and discard this session?',
+    timeUp:"Time's up! Submitted automatically.", noQuestions:'No questions available for this mode yet.',
+    overwrite:'You have an unfinished session. Discard it and start a new one?',
+    results:'Results', correctN:'{0}/{1} correct', timeUsed:'Time', autoSubmitted:'auto-submitted', byPart:'Score by part',
+    toeicEst:'Estimated TOEIC range', toeicNote:'Estimate only: a rough linear conversion of this practice score. Not an official K-StEP or TOEIC result.',
+    answers:'Answers & explanations', wrongOnly:'Wrong only', all:'All', passage:'Show passage', yourAnswer:'Your answer',
+    noMistakes:'No mistakes. Great job! 🎉', home:'Home', reviewNow:'Review mistakes',
+    progress:'Progress', answeredTotal:'Questions answered', accuracy:'Overall accuracy', bestMock:'Best mock',
+    chartTitle:'Daily average score (last 14 days)', chartAria:'Bar chart of daily average score',
+    noData:'No data yet. Finish a practice set to see your progress.', weakTopics:'Weakest topics (tap to practice)',
+    recent:'Recent sessions', partAccTitle:'Accuracy by part',
+    plan:'Study plan', examDate:'Exam date', genPlan:'Generate plan', planEmpty:'Pick your exam date to get a daily checklist.',
+    examPassed:'The exam date has passed. Set a new date to create a new plan.', examToday:'Exam day. Good luck! 🍀',
+    dayN:'Day {0}', daysLeftN:'{0} days left', go:'Go', showAll:'Show all days', planProgress:'Plan progress',
+    today:'Today', upcoming:'Next days', planStarts:'Plan starts on {0}',
+    box:'Box', dueToday:'cards due today', studyDue:'Study due cards', cram:'Study all cards (extra practice)',
+    leitner:'Leitner boxes', leitnerHelp:'Know it → next box. Again → back to Box 1. Review gaps (days): {0}',
+    newCards:'{0} new words waiting · up to {1} new per day', tapReveal:'Tap to show meaning', showAnswer:'Show meaning',
+    again:'Again', know:'Know it', cardsDone:'Done for now! 👏', noDue:'No cards due', nextDue:'Next review: {0}',
+    leftN:'{0} left', listen:'Listen',
+    settings:'Settings', language:'Language', theme:'Theme', th_system:'System', th_light:'Light', th_dark:'Dark',
+    backup:'Backup', backupHelp:'Progress is stored only on this device. Export a backup regularly.',
+    exportBtn:'Export progress (JSON)', importBtn:'Import backup', importConfirm:'Replace ALL current progress with this backup?',
+    imported:'Backup imported', importBad:'Invalid backup file', bank:'Question bank', vocabN:'{0} vocabulary words',
+    reloadBank:'Reload questions', reloaded:'Questions reloaded', examCfg:'Exam settings', total:'Total',
+    questions:'questions', points:'points', minutes:'min', count:'Items', time:'Time',
+    reset:'Reset all progress', resetConfirm:'Delete ALL progress on this device? This cannot be undone.',
+    disclaimer:'Practice tool only. Not affiliated with KMUTNB. Sample questions are original, not from real exams.',
+    navHome:'Home', navProgress:'Stats', navPlan:'Plan', navCards:'Words', navSettings:'Settings',
+    mode_practice:'Quick practice', mode_part:'Timed part test', mode_mock:'Mock exam', mode_review:'Mistake review', mode_topic:'Topic practice',
+    noTts:'Speech is not supported in this browser', noPlays:'No plays left', saveFail:'Could not save (storage full?)',
+    /* ---- Phase A: friends ---- */
+    navFriends:'Friends', navMore:'More', more:'More',
+    morePlanD:'Daily checklist until exam day', moreSettingsD:'Language, theme, backup, friends identity',
+    fTitle:'Friends', fIntro:'Study at your own time, compete together. Squad points come only from answering exam questions.',
+    fNoApi:'The friends server is not set up yet. Put your Apps Script Web App URL in CONFIG.apiUrl (see the setup guide). Everything else works offline.',
+    fOffline:'Friends features need the internet. You are offline right now. Practice still works, and your results will be sent to your squad when you are back online.',
+    practiceNow:'Keep practicing', retry:'Try again', loadingF:'Loading…',
+    profileTitle:'Create your player profile', profileEdit:'Edit profile',
+    profileHelp:'No sign-up. Your player ID is stored on this phone only. Export it in Settings to move to a new phone.',
+    nickname:'Nickname (max 16)', pickAvatar:'Choose an avatar', saveProfile:'Save', startF:'Start', cancel:'Cancel',
+    welcome:'Welcome, {0}!', joinAfterReg:'After you save, you will join squad {0}.', joinConfirm:'Join squad {0}?',
+    noSquad:'You are not in a squad yet. Create one and invite friends, or join with a code.',
+    createSquad:'Create a squad', squadName:'Squad name (optional)', create:'Create',
+    joinSquad:'Join with a code', codePh:'5-letter code', join:'Join', addSquad:'Create or join another squad',
+    squadCode:'Squad code', share:'Invite friends', copied:'Invite link copied', copyThis:'Copy this link',
+    shareText:'Join my K-StEP Prep squad! Code: {0}', membersN:'{0}/{1} members',
+    weekBoard:'This week', resetsIn:'resets in {0}', dShort:'{0}d', hShort:'{0}h',
+    pts:'pts', answeredW:'{0} answered', accW:'{0}% accuracy', lastSeen:'seen {0}', justNow:'just now', never:'not seen yet', you:'you',
+    hiddenSection:'Studying together (rank hidden)', activeWeek:'active this week', notYetWeek:'not started this week',
+    myHiddenNote:'Your rank is hidden from friends. Only you see your numbers.',
+    todayPts:'today {0}/{1} pts', capReached:'Daily cap reached. Great work! Extra practice still helps you, but adds no points today.',
+    myBreakdown:'Where your points came from (this week)', byPartW:'By part (correct/answered)', byTopicW:'By topic (correct/answered)',
+    cheer:'Cheer', cheerTo:'Cheer for {0}', cheerLeft:'Left today for this friend: {0}', cheerSent:'Cheer sent!',
+    cheersIn:'Cheers you received', noCheers:'No cheers yet.',
+    leave:'Leave this squad', leaveConfirm:'Leave squad {0}? Your personal points stay with you.',
+    refresh:'Refresh', updatedAgo:'Updated {0}',
+    pendingN:'{0} answers waiting to sync', syncNow:'Send now',
+    synced:'+{0} squad points', syncedCap:'Daily cap reached ({0} pts)', syncedZero:'Synced (these questions were already counted today)',
+    queuedOffline:'Offline: results will be sent to your squad later',
+    rulesTitle:'How squad points work',
+    rule1:'Each correct answer: +{0} points (each question counts once per day)',
+    rule2:'Daily streak bonus: +{0} × streak days (max +{1})',
+    rule3:'Daily cap: {0} points. Rest matters too!',
+    rule4:'The leaderboard resets every Monday 00:00 (Bangkok time)',
+    rule5:'Points come from every exam mode (practice, mock, review). Flashcards do not count.',
+    social:'Friends & squads', hideRank:'Hide my rank', hideRankD:'Friends will see that you are studying, but not your points or rank.',
+    needProfile:'Create a player profile in the Friends tab first.', playerAs:'Playing as',
+    idExport:'Export identity (move phone)', idImport:'Import identity',
+    idExportWarn:'This file is your login key. Do not share it with anyone. Continue?',
+    idImportConfirm:'Replace the friends identity on this phone?', idImported:'Identity imported', idBad:'Invalid identity file',
+    idForget:'Remove identity from this phone', idForgetConfirm:'Remove it? Without an exported identity file you cannot get this player back.',
+    saved:'Saved',
+    err_NO_API:'Server not configured', err_OFFLINE:'You are offline. Practice still works.', err_NETWORK:'Could not reach the server. Please try again.',
+    err_BAD_JSON:'Invalid request', err_BAD_INPUT:'Invalid request', err_UNKNOWN_ACTION:'This feature is not on the server yet (update Code.gs).',
+    err_AUTH:'Identity check failed. Import your identity file again.', err_NOT_REGISTERED:'Player not found. Please create your profile again.',
+    err_NAME_INVALID:'Please enter a nickname (1–16 characters).', err_AVATAR_INVALID:'Please choose an avatar.',
+    err_SQUAD_NAME_INVALID:'Squad name is too long (max 20).', err_BAD_CODE:'Squad codes have 5 letters/numbers.',
+    err_SQUAD_NOT_FOUND:'No squad with this code.', err_SQUAD_FULL:'This squad is full.', err_TOO_MANY_SQUADS:'You can be in up to 3 squads.',
+    err_NOT_MEMBER:'You are not in this squad.', err_BUSY:'Server is busy. Please try again.', err_RATE_LIMIT:'Too many requests. Please wait a minute.',
+    err_CHEER_LIMIT:'You have sent enough cheers today. Try again tomorrow.', err_CHEER_SELF:"You can't cheer yourself, but keep going!",
+    err_NOT_SETUP:'Server not set up (run setup()).', err_SERVER:'Server error. Please try again later.'
+  },
+  th: {
+    hello:'พร้อมฝึกหรือยัง?', tagline:'เตรียมสอบภาษาอังกฤษแนว K-StEP วันละนิด',
+    streak:'เรียนต่อเนื่อง', examIn:'สอบในอีก', daysN:'{0} วัน', setDate:'ตั้งวันสอบ',
+    bankErr:'โหลด questions.json ไม่ได้ ให้เปิดแอปผ่านเว็บเซิร์ฟเวอร์ (เช่น GitHub Pages) ไม่ใช่เปิดไฟล์ตรง ๆ',
+    resume:'ทำชุดที่ค้างไว้ต่อ', modes:'เลือกโหมด',
+    m1:'ฝึกทีละพาร์ท', m1d:'เฉลยทันทีพร้อมคำอธิบาย',
+    m2:'ข้อสอบจำลองเต็มชุด', m2d:'จับเวลา ทุกพาร์ท ดูผลตอนส่ง',
+    m3:'ทบทวนข้อที่ผิด', m3d:'เหลือ {0} ข้อที่ต้องแก้',
+    flashcards:'แฟลชการ์ดคำศัพท์', dueN:'ถึงกำหนดทบทวนวันนี้ {0} ใบ',
+    todayPlan:'แผนวันนี้', tasksDone:'ทำแล้ว {0}/{1} งาน',
+    practiceHelp:'ฝึกเร็วจะเฉลยหลังตอบแต่ละข้อ ส่วนสอบจับเวลารายพาร์ทใช้เวลาตามจริงและดูผลตอนส่ง',
+    part:'พาร์ท', inBank:'มี {0} ข้อในคลัง', acc:'ความแม่นยำ', quick:'ฝึกเร็ว · {0} ข้อ', timedTest:'สอบจับเวลา · {0} ข้อ / {1} นาที',
+    start:'เริ่มสอบ', mockRules:'เวลาสอบ {0} นาที ไม่มีเฉลยระหว่างทำ และส่งคำตอบอัตโนมัติเมื่อหมดเวลา',
+    mockScaled:'คลังข้อสอบมี {0} จาก {1} ข้อ จึงปรับเวลาและคะแนนตามสัดส่วน',
+    qOf:'ข้อ {0} จาก {1}', exit:'ออก', overview:'ภาพรวมข้อสอบ',
+    playsLeft:'ฟังได้อีก {0}/{1} ครั้ง', unlimited:'ฟังซ้ำได้ไม่จำกัด (โหมดฝึก)', ttsNote:'เสียงสังเคราะห์',
+    replay:'ฟังใหม่', play:'เล่น', pause:'หยุดชั่วคราว', resume2:'เล่นต่อ', stop:'หยุด',
+    back:'ก่อนหน้า', flag:'ปักธง', next:'ถัดไป', submit:'ส่งคำตอบ', finish:'ดูผล', answeredN:'ตอบแล้ว {0}/{1}', close:'ปิด',
+    unanswered:'ไม่ได้ตอบ', correct:'ถูกต้อง', incorrect:'ไม่ถูกต้อง', answerIs:'คำตอบ:', transcript:'ดูบทพูด (Transcript)',
+    submitConfirm:'ส่งคำตอบเลยไหม?\nยังไม่ได้ตอบ: {0} ข้อ\nปักธงไว้: {1} ข้อ', quitConfirm:'ออกและยกเลิกชุดนี้?',
+    timeUp:'หมดเวลา ส่งคำตอบอัตโนมัติแล้ว', noQuestions:'ยังไม่มีข้อสอบสำหรับโหมดนี้',
+    overwrite:'มีชุดที่ทำค้างอยู่ ต้องการทิ้งชุดเดิมและเริ่มใหม่ไหม?',
+    results:'ผลการสอบ', correctN:'ถูก {0}/{1} ข้อ', timeUsed:'ใช้เวลา', autoSubmitted:'ส่งอัตโนมัติ', byPart:'คะแนนรายพาร์ท',
+    toeicEst:'ช่วงคะแนน TOEIC โดยประมาณ', toeicNote:'เป็นการประมาณเท่านั้น แปลงคะแนนแบบเส้นตรงคร่าว ๆ จากชุดฝึกนี้ ไม่ใช่ผล K-StEP หรือ TOEIC อย่างเป็นทางการ',
+    answers:'เฉลยและคำอธิบาย', wrongOnly:'เฉพาะข้อผิด', all:'ทั้งหมด', passage:'ดูบทอ่าน', yourAnswer:'คำตอบของคุณ',
+    noMistakes:'ไม่มีข้อผิดเลย เก่งมาก! 🎉', home:'หน้าแรก', reviewNow:'ทบทวนข้อผิด',
+    progress:'ความก้าวหน้า', answeredTotal:'จำนวนข้อที่ทำ', accuracy:'ความแม่นยำรวม', bestMock:'สอบจำลองสูงสุด',
+    chartTitle:'คะแนนเฉลี่ยรายวัน (14 วันล่าสุด)', chartAria:'กราฟแท่งคะแนนเฉลี่ยรายวัน',
+    noData:'ยังไม่มีข้อมูล ลองทำแบบฝึกสักชุดก่อนนะ', weakTopics:'หัวข้อที่ยังอ่อน (แตะเพื่อฝึก)',
+    recent:'ประวัติล่าสุด', partAccTitle:'ความแม่นยำรายพาร์ท',
+    plan:'แผนการอ่าน', examDate:'วันสอบ', genPlan:'สร้างแผน', planEmpty:'เลือกวันสอบเพื่อสร้างเช็กลิสต์รายวัน',
+    examPassed:'วันสอบผ่านไปแล้ว ตั้งวันใหม่เพื่อสร้างแผนใหม่', examToday:'วันนี้วันสอบ ขอให้โชคดี! 🍀',
+    dayN:'วันที่ {0}', daysLeftN:'อีก {0} วัน', go:'เริ่ม', showAll:'ดูทุกวัน', planProgress:'ความคืบหน้าแผน',
+    today:'วันนี้', upcoming:'วันถัดไป', planStarts:'แผนเริ่มวันที่ {0}',
+    box:'กล่อง', dueToday:'ใบที่ถึงกำหนดวันนี้', studyDue:'ทบทวนการ์ดที่ถึงกำหนด', cram:'ทบทวนทั้งหมด (ฝึกเพิ่ม)',
+    leitner:'กล่อง Leitner', leitnerHelp:'จำได้ → ไปกล่องถัดไป · ยังจำไม่ได้ → กลับกล่อง 1 · ระยะทบทวน (วัน): {0}',
+    newCards:'คำใหม่รออยู่ {0} คำ · เพิ่มวันละไม่เกิน {1} คำ', tapReveal:'แตะเพื่อดูความหมาย', showAnswer:'ดูความหมาย',
+    again:'ยังจำไม่ได้', know:'จำได้', cardsDone:'ทบทวนครบแล้ว! 👏', noDue:'ไม่มีการ์ดถึงกำหนด', nextDue:'ทบทวนครั้งถัดไป: {0}',
+    leftN:'เหลือ {0} ใบ', listen:'ฟังเสียง',
+    settings:'ตั้งค่า', language:'ภาษา', theme:'ธีม', th_system:'ตามระบบ', th_light:'สว่าง', th_dark:'มืด',
+    backup:'สำรองข้อมูล', backupHelp:'ความคืบหน้าเก็บไว้ในเครื่องนี้เท่านั้น ควรส่งออกไฟล์สำรองเป็นประจำ',
+    exportBtn:'ส่งออกความคืบหน้า (JSON)', importBtn:'นำเข้าไฟล์สำรอง', importConfirm:'แทนที่ความคืบหน้าปัจจุบันทั้งหมดด้วยไฟล์นี้?',
+    imported:'นำเข้าข้อมูลแล้ว', importBad:'ไฟล์สำรองไม่ถูกต้อง', bank:'คลังข้อสอบ', vocabN:'คำศัพท์ {0} คำ',
+    reloadBank:'โหลดข้อสอบใหม่', reloaded:'โหลดข้อสอบใหม่แล้ว', examCfg:'ค่าการสอบ', total:'รวม',
+    questions:'ข้อ', points:'คะแนน', minutes:'นาที', count:'จำนวนข้อ', time:'เวลา',
+    reset:'ล้างความคืบหน้าทั้งหมด', resetConfirm:'ลบความคืบหน้าทั้งหมดในเครื่องนี้? ย้อนกลับไม่ได้',
+    disclaimer:'เครื่องมือฝึกเท่านั้น ไม่มีส่วนเกี่ยวข้องกับ มจพ. ข้อสอบตัวอย่างแต่งขึ้นใหม่ ไม่ได้มาจากข้อสอบจริง',
+    navHome:'หน้าแรก', navProgress:'สถิติ', navPlan:'แผน', navCards:'คำศัพท์', navSettings:'ตั้งค่า',
+    mode_practice:'ฝึกเร็ว', mode_part:'สอบจับเวลารายพาร์ท', mode_mock:'ข้อสอบจำลอง', mode_review:'ทบทวนข้อผิด', mode_topic:'ฝึกตามหัวข้อ',
+    noTts:'เบราว์เซอร์นี้ไม่รองรับการอ่านออกเสียง', noPlays:'ใช้สิทธิ์ฟังครบแล้ว', saveFail:'บันทึกไม่ได้ (พื้นที่เต็ม?)',
+    /* ---- Phase A: friends ---- */
+    navFriends:'เพื่อน', navMore:'เพิ่มเติม', more:'เพิ่มเติม',
+    morePlanD:'เช็กลิสต์รายวันจนถึงวันสอบ', moreSettingsD:'ภาษา ธีม สำรองข้อมูล ตัวตนสำหรับเพื่อน',
+    fTitle:'เพื่อน', fIntro:'ต่างคนต่างฝึกตามเวลาที่สะดวก แต่แข่งกันได้ คะแนนกลุ่มมาจากการตอบข้อสอบเท่านั้น',
+    fNoApi:'ยังไม่ได้ตั้งค่าเซิร์ฟเวอร์เพื่อน ให้ใส่ URL ของ Apps Script Web App ใน CONFIG.apiUrl (ดูคู่มือ) ฟีเจอร์อื่นยังใช้ออฟไลน์ได้ตามปกติ',
+    fOffline:'ฟีเจอร์เพื่อนต้องใช้อินเทอร์เน็ต ตอนนี้คุณออฟไลน์อยู่ ฝึกต่อได้ตามปกติ และผลจะถูกส่งเข้ากลุ่มเมื่อกลับมาออนไลน์',
+    practiceNow:'ฝึกต่อเลย', retry:'ลองอีกครั้ง', loadingF:'กำลังโหลด…',
+    profileTitle:'สร้างโปรไฟล์ผู้เล่น', profileEdit:'แก้ไขโปรไฟล์',
+    profileHelp:'ไม่ต้องสมัครสมาชิก รหัสผู้เล่นเก็บในเครื่องนี้เท่านั้น ถ้าจะย้ายเครื่องให้ส่งออกตัวตนในหน้าตั้งค่า',
+    nickname:'ชื่อเล่น (ไม่เกิน 16 ตัวอักษร)', pickAvatar:'เลือกอวาตาร์', saveProfile:'บันทึก', startF:'เริ่มใช้งาน', cancel:'ยกเลิก',
+    welcome:'ยินดีต้อนรับ {0}!', joinAfterReg:'บันทึกแล้วจะเข้ากลุ่ม {0} ให้อัตโนมัติ', joinConfirm:'เข้าร่วมกลุ่ม {0} ไหม?',
+    noSquad:'ยังไม่ได้อยู่ในกลุ่มไหน สร้างกลุ่มแล้วชวนเพื่อน หรือใส่รหัสเพื่อเข้ากลุ่ม',
+    createSquad:'สร้างกลุ่ม', squadName:'ชื่อกลุ่ม (ไม่บังคับ)', create:'สร้าง',
+    joinSquad:'เข้ากลุ่มด้วยรหัส', codePh:'รหัส 5 ตัว', join:'เข้าร่วม', addSquad:'สร้างหรือเข้ากลุ่มเพิ่ม',
+    squadCode:'รหัสกลุ่ม', share:'ชวนเพื่อน', copied:'คัดลอกลิงก์ชวนแล้ว', copyThis:'คัดลอกลิงก์นี้',
+    shareText:'มาเข้ากลุ่มติวสอบ K-StEP กัน! รหัสกลุ่ม: {0}', membersN:'สมาชิก {0}/{1} คน',
+    weekBoard:'อันดับสัปดาห์นี้', resetsIn:'รีเซ็ตใน {0}', dShort:'{0} วัน', hShort:'{0} ชม.',
+    pts:'คะแนน', answeredW:'ทำ {0} ข้อ', accW:'แม่น {0}%', lastSeen:'เข้ามา {0}', justNow:'เมื่อสักครู่', never:'ยังไม่เคยเข้า', you:'คุณ',
+    hiddenSection:'ฝึกอยู่ด้วยกัน (ซ่อนอันดับ)', activeWeek:'ฝึกแล้วสัปดาห์นี้', notYetWeek:'สัปดาห์นี้ยังไม่ได้เริ่ม',
+    myHiddenNote:'อันดับของคุณถูกซ่อนจากเพื่อน มีแค่คุณที่เห็นตัวเลขนี้',
+    todayPts:'วันนี้ {0}/{1} คะแนน', capReached:'ถึงเพดานคะแนนวันนี้แล้ว เก่งมาก! ฝึกต่อได้ แต่จะไม่ได้คะแนนเพิ่มในวันนี้',
+    myBreakdown:'คะแนนสัปดาห์นี้ของคุณมาจากไหน', byPartW:'แยกตามพาร์ท (ถูก/ทำ)', byTopicW:'แยกตามหัวข้อ (ถูก/ทำ)',
+    cheer:'เชียร์', cheerTo:'ส่งกำลังใจให้ {0}', cheerLeft:'วันนี้ส่งให้เพื่อนคนนี้ได้อีก {0} ครั้ง', cheerSent:'ส่งกำลังใจแล้ว!',
+    cheersIn:'กำลังใจที่ได้รับ', noCheers:'ยังไม่มี',
+    leave:'ออกจากกลุ่มนี้', leaveConfirm:'ออกจากกลุ่ม {0} ไหม? คะแนนส่วนตัวของคุณยังอยู่',
+    refresh:'รีเฟรช', updatedAgo:'อัปเดต {0}',
+    pendingN:'มี {0} คำตอบรอส่งเข้ากลุ่ม', syncNow:'ส่งเลย',
+    synced:'+{0} คะแนนกลุ่ม', syncedCap:'ถึงเพดานคะแนนวันนี้แล้ว ({0})', syncedZero:'ส่งผลแล้ว (ข้อเหล่านี้นับไปแล้ววันนี้)',
+    queuedOffline:'ออฟไลน์อยู่ ผลจะส่งเข้ากลุ่มภายหลัง',
+    rulesTitle:'กติกาคะแนนกลุ่ม',
+    rule1:'ตอบถูก 1 ข้อ +{0} คะแนน (แต่ละข้อนับได้วันละครั้ง)',
+    rule2:'โบนัสเรียนต่อเนื่อง: +{0} × จำนวนวัน (สูงสุด +{1})',
+    rule3:'เพดานวันละ {0} คะแนน การพักก็สำคัญ',
+    rule4:'อันดับรีเซ็ตทุกวันจันทร์ 00:00 น. (เวลาไทย)',
+    rule5:'คะแนนมาจากทุกโหมดข้อสอบ (ฝึก, ข้อสอบจำลอง, ทบทวน) แฟลชการ์ดไม่นับ',
+    social:'เพื่อนและกลุ่ม', hideRank:'ซ่อนอันดับของฉัน', hideRankD:'เพื่อนจะเห็นว่าคุณฝึกอยู่ แต่ไม่เห็นคะแนนหรืออันดับ',
+    needProfile:'สร้างโปรไฟล์ในแท็บเพื่อนก่อน', playerAs:'เล่นในชื่อ',
+    idExport:'ส่งออกตัวตน (ย้ายเครื่อง)', idImport:'นำเข้าตัวตน',
+    idExportWarn:'ไฟล์นี้คือกุญแจเข้าบัญชีของคุณ ห้ามส่งให้ใคร ดำเนินการต่อไหม?',
+    idImportConfirm:'แทนที่ตัวตนเพื่อนในเครื่องนี้?', idImported:'นำเข้าตัวตนแล้ว', idBad:'ไฟล์ตัวตนไม่ถูกต้อง',
+    idForget:'ลบตัวตนออกจากเครื่องนี้', idForgetConfirm:'ลบเลยไหม? ถ้าไม่ได้ส่งออกไฟล์ตัวตนไว้ จะกู้ผู้เล่นนี้คืนไม่ได้',
+    saved:'บันทึกแล้ว',
+    err_NO_API:'ยังไม่ได้ตั้งค่าเซิร์ฟเวอร์', err_OFFLINE:'ออฟไลน์อยู่ ฝึกต่อได้ตามปกติ', err_NETWORK:'ติดต่อเซิร์ฟเวอร์ไม่ได้ ลองใหม่อีกครั้ง',
+    err_BAD_JSON:'คำขอไม่ถูกต้อง', err_BAD_INPUT:'คำขอไม่ถูกต้อง', err_UNKNOWN_ACTION:'เซิร์ฟเวอร์ยังไม่มีฟีเจอร์นี้ (อัปเดต Code.gs)',
+    err_AUTH:'ยืนยันตัวตนไม่ผ่าน ลองนำเข้าไฟล์ตัวตนอีกครั้ง', err_NOT_REGISTERED:'ไม่พบผู้เล่น กรุณาสร้างโปรไฟล์ใหม่',
+    err_NAME_INVALID:'กรุณาใส่ชื่อเล่น 1–16 ตัวอักษร', err_AVATAR_INVALID:'กรุณาเลือกอวาตาร์',
+    err_SQUAD_NAME_INVALID:'ชื่อกลุ่มยาวเกินไป (ไม่เกิน 20)', err_BAD_CODE:'รหัสกลุ่มต้องมี 5 ตัวอักษร/ตัวเลข',
+    err_SQUAD_NOT_FOUND:'ไม่พบกลุ่มที่ใช้รหัสนี้', err_SQUAD_FULL:'กลุ่มนี้เต็มแล้ว', err_TOO_MANY_SQUADS:'อยู่ได้สูงสุด 3 กลุ่ม',
+    err_NOT_MEMBER:'คุณไม่ได้อยู่ในกลุ่มนี้', err_BUSY:'เซิร์ฟเวอร์ไม่ว่าง ลองใหม่อีกครั้ง', err_RATE_LIMIT:'ส่งคำขอถี่เกินไป รอสักครู่',
+    err_CHEER_LIMIT:'วันนี้ส่งกำลังใจครบแล้ว พรุ่งนี้ส่งใหม่ได้', err_CHEER_SELF:'เชียร์ตัวเองไม่ได้ แต่สู้ ๆ นะ!',
+    err_NOT_SETUP:'เซิร์ฟเวอร์ยังไม่ได้ตั้งค่า (รัน setup())', err_SERVER:'เซิร์ฟเวอร์ขัดข้อง ลองใหม่ภายหลัง'
+  }
+};
+
+/* =========================================================
+   3) HELPERS & STATE
+   ========================================================= */
+const $ = s => document.querySelector(s);
+const app = $('#app');
+const LET = ['A', 'B', 'C', 'D'];
+const STORE_KEY = 'kstep-progress-v1', SESSION_KEY = 'kstep-session-v1';
+
+function defaultState(){ return { v:1, settings:{ lang:'th', theme:'system' }, attempts:[], mistakes:{}, topics:{}, activity:{}, plan:{ examDate:'', start:'', done:{} }, cards:{} }; }
+function loadState(){
+  try{
+    const raw = JSON.parse(localStorage.getItem(STORE_KEY) || 'null');
+    if(!raw) return defaultState();
+    const d = defaultState();
+    return { ...d, ...raw, settings:{ ...d.settings, ...raw.settings }, plan:{ ...d.plan, ...raw.plan } };
+  }catch(e){ return defaultState(); }
+}
+let S = loadState();
+function save(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(S)); }catch(e){ toast(t('saveFail')); } }
+
+function t(k, ...a){
+  let s = (I18N[S.settings.lang] || I18N.en)[k];
+  if(s === undefined) s = I18N.en[k];
+  if(s === undefined) return k;
+  return s.replace(/\{(\d)\}/g, (_, i) => a[i]);
+}
+function esc(s){ return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+const z2 = n => String(n).padStart(2, '0');
+function dstr(d = new Date()){ return d.getFullYear() + '-' + z2(d.getMonth() + 1) + '-' + z2(d.getDate()); }
+function addDays(ds, n){ const d = new Date(ds + 'T00:00:00'); d.setDate(d.getDate() + n); return dstr(d); }
+function diffDays(a, b){ return Math.round((new Date(b + 'T00:00:00') - new Date(a + 'T00:00:00')) / 864e5); }
+function fmtDate(ds){ return new Date(ds + 'T00:00:00').toLocaleDateString(S.settings.lang === 'th' ? 'th-TH' : 'en-GB', { weekday:'short', day:'numeric', month:'short' }); }
+function fmtTime(ms){ ms = Math.max(0, ms); const s = Math.floor(ms / 1000), h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60); return (h ? h + ':' + z2(m) : m) + ':' + z2(s % 60); }
+const fmt1 = x => String(Math.round(x * 10) / 10);
+function shuffle(a){ a = a.slice(); for(let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function toast(msg){ const el = $('#toast'); el.textContent = msg; el.classList.add('on'); clearTimeout(toast._t); toast._t = setTimeout(() => el.classList.remove('on'), 2400); }
+const totalCount = () => CONFIG.parts.reduce((s, p) => s + p.count, 0);
+const partById = id => CONFIG.parts.find(p => p.id === Number(id));
+const partPoints = p => CONFIG.totalPoints * p.count / totalCount();
+const pName = p => S.settings.lang === 'th' ? p.th : p.en;
+const countPart = id => BANK.questions.filter(q => q.part === id).length;
+const stat = (label, val, click) => `<${click ? 'button' : 'div'} class="stat" ${click ? `onclick="${click}"` : ''}><div class="muted">${label}</div><div class="v">${val}</div></${click ? 'button' : 'div'}>`;
+const hbar = (label, frac, val) => `<div class="hbar"><span class="lbl">${esc(label)}</span><span class="track"><i style="width:${Math.round(frac * 100)}%"></i></span><span class="val">${val}</span></div>`;
+
+/* =========================================================
+   4) QUESTION BANK
+   ========================================================= */
+let BANK = { questions:[], vocab:[] }, QMAP = new Map(), bankErr = '';
+function validQ(q){ return q && q.id && partById(q.part) && q.question && Array.isArray(q.choices) && q.choices.length === 4 && Number.isInteger(q.answer) && q.answer >= 0 && q.answer < 4; }
+async function loadBank(){
+  bankErr = '';
+  try{
+    const r = await fetch(CONFIG.questionsUrl, { cache:'no-cache' });
+    if(!r.ok) throw new Error('HTTP ' + r.status);
+    const j = await r.json();
+    const qs = (Array.isArray(j) ? j : (j.questions || [])).map(q => ({ ...q, part:Number(q.part) }));
+    BANK.questions = qs.filter(validQ);
+    BANK.vocab = Array.isArray(j) ? [] : (j.vocab || []).filter(v => v && v.word);
+    if(qs.length !== BANK.questions.length) console.warn((qs.length - BANK.questions.length) + ' invalid question(s) skipped');
+  }catch(e){ bankErr = String(e.message || e); }
+  QMAP = new Map(BANK.questions.map(q => [q.id, q]));
+}
+
+/* =========================================================
+   5) ROUTER / RENDER
+   ========================================================= */
+let view = 'home', session = null, timerId = null, lastResult = null, showGrid = false, resFilter = 'wrong', WEAK = [], cardQ = null, cardFlip = false;
+
+function go(v){
+  view = v;
+  if(v !== 'friends'){ F.cheerTo = null; F.editing = false; }
+  render(); window.scrollTo(0, 0);
+  if(v === 'friends') friendsEnter(false);
+}
+function render(){
+  document.documentElement.lang = S.settings.lang;
+  if(view === 'exam' && !session) view = 'home';
+  const V = { home:vHome, practice:vPractice, mockIntro:vMockIntro, exam:vExam, result:vResult, progress:vProgress, plan:vPlan, cards:vCards, settings:vSettings, friends:vFriends, more:vMore };
+  app.innerHTML = (V[view] || vHome)();
+  renderNav();
+  if(view === 'exam') updateTimer();
+}
+function renderNav(){
+  const nav = $('#nav');
+  const hide = view === 'exam' || (view === 'cards' && cardQ);
+  nav.hidden = !!hide;
+  if(hide) return;
+  const items = [['home','🏠','navHome'],['progress','📈','navProgress'],['friends','👥','navFriends'],['cards','🃏','navCards'],['more','☰','navMore']];
+  const act = { practice:'home', mockIntro:'home', result:'home', plan:'more', settings:'more' }[view] || view;
+  nav.innerHTML = items.map(([v, i, k]) => `<button class="${act === v ? 'on' : ''}" onclick="go('${v}')" ${act === v ? 'aria-current="page"' : ''}><span class="i" aria-hidden="true">${i}</span>${t(k)}</button>`).join('');
+}
+function applyTheme(){
+  const m = S.settings.theme;
+  const dark = m === 'dark' || (m === 'system' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
+  document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+  $('meta[name=theme-color]').content = dark ? '#0e1217' : '#1f5fbf';
+}
+
+/* =========================================================
+   6) HOME / PRACTICE PICK / MOCK INTRO / MORE
+   ========================================================= */
+function vHome(){
+  const today = dstr();
+  const mist = Object.keys(S.mistakes).filter(id => QMAP.has(id)).length;
+  const due = dueCards().length;
+  const saved = loadSession();
+  const ex = S.plan.examDate ? diffDays(today, S.plan.examDate) : null;
+  let h = `<h1>${t('hello')}</h1><p class="muted">${t('tagline')}</p>
+  <div class="stats">${stat(t('streak'), '🔥 ' + calcStreak())}${stat(t('examIn'), ex !== null && ex >= 0 ? t('daysN', ex) : t('setDate'), "go('plan')")}</div>`;
+  if(bankErr) h += `<div class="card bad-t">${t('bankErr')} (${esc(bankErr)})</div>`;
+  if(saved) h += `<button class="mode" style="border:2px solid var(--pri)" onclick="resume()"><span class="ic">⏯️</span><span><b>${t('resume')}</b><span class="muted">${t('mode_' + saved.mode)} · ${t('answeredN', Object.keys(saved.answers).length, saved.ids.length)}</span></span></button>`;
+  const pd = planDays().find(d => d.date === today);
+  if(pd){ const done = S.plan.done[today] || []; h += `<button class="mode" onclick="go('plan')"><span class="ic">🗓️</span><span><b>${t('todayPlan')}</b><span class="muted">${t('tasksDone', pd.tasks.filter(x => done.includes(x.k)).length, pd.tasks.length)}</span></span></button>`; }
+  h += `<h2>${t('modes')}</h2>
+  <button class="mode" onclick="go('practice')"><span class="ic">🎯</span><span><b>${t('m1')}</b><span class="muted">${t('m1d')}</span></span></button>
+  <button class="mode" onclick="go('mockIntro')"><span class="ic">⏱️</span><span><b>${t('m2')}</b><span class="muted">${t('m2d')}</span></span></button>
+  <button class="mode" onclick="startSession('review')" ${mist ? '' : 'disabled'}><span class="ic">🔁</span><span><b>${t('m3')}</b><span class="muted">${t('m3d', mist)}</span></span></button>
+  <button class="mode" onclick="go('cards')"><span class="ic">🃏</span><span><b>${t('flashcards')}</b><span class="muted">${t('dueN', due)}</span></span></button>`;
+  return h;
+}
+function vPractice(){
+  const pa = partAcc();
+  let h = `<h1>${t('m1')}</h1><p class="muted">${t('practiceHelp')}</p>`;
+  CONFIG.parts.forEach(p => {
+    const avail = countPart(p.id), pn = Math.min(p.count, avail), mins = Math.ceil(p.minutes * pn / p.count), x = pa[p.id];
+    h += `<div class="card"><h3>${p.icon} ${t('part')} ${p.id}: ${esc(pName(p))}</h3>
+      <p class="muted">${t('inBank', avail)} · ${t('acc')} ${x ? Math.round(x.c / x.n * 100) + '%' : '—'}</p>
+      <div class="stack"><button class="btn pri" onclick="startSession('practice',${p.id})" ${avail ? '' : 'disabled'}>${t('quick', Math.min(CONFIG.practiceSize, avail))}</button>
+      <button class="btn" onclick="startSession('part',${p.id})" ${avail ? '' : 'disabled'}>⏱ ${t('timedTest', pn, mins)}</button></div></div>`;
+  });
+  return h;
+}
+function vMockIntro(){
+  let n = 0;
+  const rows = CONFIG.parts.map(p => { const k = Math.min(p.count, countPart(p.id)); n += k; return `<tr><td>${p.icon} ${esc(pName(p))}</td><td>${k}/${p.count}</td><td>${fmt1(partPoints(p))}</td></tr>`; }).join('');
+  const mins = Math.ceil(CONFIG.totalMinutes * n / totalCount());
+  return `<h1>${t('m2')}</h1><div class="card"><table><tr><th>${t('part')}</th><th>${t('count')}</th><th>${t('points')}</th></tr>${rows}</table>
+  <p>${t('mockRules', mins)}</p>${n < totalCount() ? `<p class="muted">${t('mockScaled', n, totalCount())}</p>` : ''}</div>
+  <button class="btn pri" onclick="startSession('mock')" ${n ? '' : 'disabled'}>${t('start')}</button><div class="space"></div>
+  <button class="btn ghost" onclick="go('home')">${t('back')}</button>`;
+}
+function vMore(){
+  return `<h1>${t('more')}</h1>
+  <button class="mode" onclick="go('plan')"><span class="ic">🗓️</span><span><b>${t('plan')}</b><span class="muted">${t('morePlanD')}</span></span></button>
+  <button class="mode" onclick="go('settings')"><span class="ic">⚙️</span><span><b>${t('settings')}</b><span class="muted">${t('moreSettingsD')}</span></span></button>
+  <p class="muted">${t('disclaimer')}</p>`;
+}
+
+/* =========================================================
+   7) SESSIONS (practice / part / mock / review / topic)
+   ========================================================= */
+function saveSession(){ if(session) localStorage.setItem(SESSION_KEY, JSON.stringify(session)); else localStorage.removeItem(SESSION_KEY); }
+function loadSession(){
+  try{ const s = JSON.parse(localStorage.getItem(SESSION_KEY) || 'null'); if(s && s.ids && s.ids.length && s.ids.every(id => QMAP.has(id))) return s; }catch(e){}
+  return null;
+}
+const curQ = () => QMAP.get(session.ids[session.idx]);
+
+function startSession(mode, part, topic){
+  if(!session && loadSession() && !confirm(t('overwrite'))) return;
+  const byPart = id => BANK.questions.filter(q => q.part === id);
+  let ids = [], minutes = 0;
+  if(mode === 'practice') ids = shuffle(byPart(part)).slice(0, CONFIG.practiceSize).map(q => q.id);
+  else if(mode === 'part'){ const p = partById(part); ids = shuffle(byPart(part)).slice(0, p.count).map(q => q.id); minutes = p.minutes * ids.length / p.count; }
+  else if(mode === 'mock'){ CONFIG.parts.forEach(p => ids.push(...shuffle(byPart(p.id)).slice(0, p.count).map(q => q.id))); minutes = CONFIG.totalMinutes * ids.length / totalCount(); }
+  else if(mode === 'review') ids = shuffle(Object.keys(S.mistakes).filter(id => QMAP.has(id))).sort((a, b) => QMAP.get(a).part - QMAP.get(b).part);
+  else if(mode === 'topic') ids = shuffle(BANK.questions.filter(q => (q.topic || 'General') === topic)).slice(0, CONFIG.practiceSize).map(q => q.id);
+  if(!ids.length){ toast(t('noQuestions')); return; }
+  stopAudio();
+  session = { mode, part:part || null, topic:topic || null, ids, idx:0, answers:{}, flags:{}, plays:{}, startedAt:Date.now(),
+              endAt: minutes ? Date.now() + Math.ceil(minutes * 60000) : 0, feedback: ['practice','review','topic'].includes(mode) };
+  saveSession(); showGrid = false; startTimer(); go('exam');
+}
+function resume(){
+  const s = loadSession(); if(!s) return;
+  session = s; view = 'exam';
+  if(s.endAt && Date.now() >= s.endAt){ submit(true); return; }
+  startTimer(); render();
+}
+function quitSession(){ if(!confirm(t('quitConfirm'))) return; stopAudio(); stopTimer(); session = null; saveSession(); go('home'); }
+function startTopic(i){ const w = WEAK[i]; if(w) startSession('topic', null, w.k); }
+
+/* ---------- Timer ---------- */
+function startTimer(){ stopTimer(); if(session && session.endAt) timerId = setInterval(updateTimer, 1000); }
+function stopTimer(){ if(timerId){ clearInterval(timerId); timerId = null; } }
+function updateTimer(){
+  if(!session || !session.endAt) return;
+  const left = session.endAt - Date.now(), el = $('#timer');
+  if(el){ el.textContent = '⏱ ' + fmtTime(left); el.classList.toggle('low', left < 5 * 60000); }
+  if(left <= 0){ stopTimer(); toast(t('timeUp')); submit(true); }
+}
+
+/* ---------- Question screen ---------- */
+const isListening = q => q.part === 1 || !!q.audio || !!q.script;
+function vExam(){
+  const s = session, q = curQ(), p = partById(q.part), n = s.ids.length, i = s.idx;
+  const a = s.answers[q.id], reveal = s.feedback && a !== undefined;
+  const answered = Object.keys(s.answers).length, flagged = Object.keys(s.flags).length;
+  let h = `<div class="top"><div class="row" style="align-items:center;gap:8px">
+    <button class="iconbtn" style="flex:none" onclick="quitSession()" aria-label="${t('exit')}">✕</button>
+    <div style="flex:1;min-width:0"><div class="ell"><b>${p.icon} ${t('part')} ${p.id} · ${esc(pName(p))}</b></div>
+    <div class="muted">${t('qOf', i + 1, n)}${s.flags[q.id] ? ' · ⚑' : ''}</div></div>
+    ${s.endAt ? '<div id="timer" class="timer" style="flex:none"></div>' : ''}
+    <button class="iconbtn" style="flex:none" onclick="toggleGrid()" aria-label="${t('overview')}">▦</button>
+  </div><div class="prog" aria-hidden="true"><i style="width:${(i + 1) / n * 100}%"></i></div></div>`;
+  if(isListening(q)) h += `<div class="card" id="audioBox">${audioInner(q)}</div>`;
+  if(q.passage) h += `<div class="passage">${esc(q.passage)}</div>`;
+  h += `<div class="q">${esc(q.question)}</div>`;
+  q.choices.forEach((c, k) => {
+    let cls = '';
+    if(reveal){ if(k === q.answer) cls = 'ok'; else if(k === a) cls = 'bad'; }
+    else if(k === a) cls = 'sel';
+    h += `<button class="choice ${cls}" onclick="choose(${k})" aria-pressed="${k === a}"><span class="k">${LET[k]}</span><span>${esc(c)}</span></button>`;
+  });
+  if(reveal) h += explain(q, a);
+  const last = i === n - 1;
+  h += `<div class="bar"><div class="in">
+    <button class="btn" onclick="move(-1)" ${i === 0 ? 'disabled' : ''}>‹ ${t('back')}</button>
+    <button class="btn ${s.flags[q.id] ? 'flagged' : ''}" onclick="toggleFlag()" aria-pressed="${!!s.flags[q.id]}">⚑ ${t('flag')}</button>
+    ${last ? `<button class="btn pri" onclick="submit(false)">${s.feedback ? t('finish') : t('submit')}</button>`
+           : `<button class="btn pri" onclick="move(1)">${t('next')} ›</button>`}
+  </div></div>`;
+  if(showGrid) h += `<div class="sheet" onclick="if(event.target===this)toggleGrid()"><div class="panel">
+    <h2 style="margin-top:0">${t('overview')}</h2><p class="muted">${t('answeredN', answered, n)} · ⚑ ${flagged}</p>
+    <div class="grid">${s.ids.map((id, k) => `<button class="${s.answers[id] !== undefined ? 'ans' : ''} ${s.flags[id] ? 'flag' : ''} ${k === i ? 'cur' : ''}" onclick="jump(${k})">${k + 1}</button>`).join('')}</div>
+    <div class="space"></div><button class="btn pri" onclick="submit(false)">${t('submit')}</button>
+    <div class="space"></div><button class="btn" onclick="toggleGrid()">${t('close')}</button></div></div>`;
+  return h;
+}
+function explain(q, a){
+  const ok = a === q.answer;
+  return `<div class="fb ${a === undefined ? '' : ok ? 'ok' : 'bad'}">
+    <b class="${ok ? 'ok-t' : 'bad-t'}">${a === undefined ? t('unanswered') : ok ? '✓ ' + t('correct') : '✗ ' + t('incorrect')}</b>
+    · ${t('answerIs')} <b>${LET[q.answer]}. ${esc(q.choices[q.answer])}</b>
+    ${q.explanation_th ? `<p><b>TH</b> ${esc(q.explanation_th)}</p>` : ''}
+    ${q.explanation_en ? `<p><b>EN</b> ${esc(q.explanation_en)}</p>` : ''}
+    ${q.script ? `<details><summary>${t('transcript')}</summary><p style="white-space:pre-wrap">${esc(q.script)}</p></details>` : ''}</div>`;
+}
+function choose(k){
+  const q = curQ();
+  if(session.feedback && session.answers[q.id] !== undefined) return;
+  session.answers[q.id] = k; saveSession(); render();
+  if(session.feedback){ const fb = $('.fb'); if(fb) fb.scrollIntoView({ behavior:'smooth', block:'nearest' }); }
+}
+function move(d){ stopAudio(); session.idx = Math.max(0, Math.min(session.ids.length - 1, session.idx + d)); saveSession(); render(); window.scrollTo(0, 0); }
+function jump(k){ stopAudio(); session.idx = k; showGrid = false; saveSession(); render(); window.scrollTo(0, 0); }
+function toggleGrid(){ showGrid = !showGrid; render(); }
+function toggleFlag(){ const id = curQ().id; if(session.flags[id]) delete session.flags[id]; else session.flags[id] = true; saveSession(); render(); }
+
+/* ---------- Audio: <audio> file or speechSynthesis fallback ---------- */
+let audioEl = null, audioState = 'idle', audioKind = 'tts', ttsToken = 0;
+function maxPlays(){ return (session.mode === 'mock' || session.mode === 'part') ? CONFIG.maxPlaysTimed : CONFIG.maxPlaysPractice; }
+function audioLabel(){
+  if(audioState === 'playing') return audioKind === 'file' ? '⏸ ' + t('pause') : '⏹ ' + t('stop');
+  if(audioState === 'paused') return '▶ ' + t('resume2');
+  return '▶ ' + t('play');
+}
+function audioInner(q){
+  const max = maxPlays(), used = session.plays[q.id] || 0, canNew = !max || used < max;
+  return `<div class="audio">
+    <button class="btn pri" style="flex:2" onclick="audioToggle()" ${audioState === 'idle' && !canNew ? 'disabled' : ''}>${audioLabel()}</button>
+    <button class="btn" style="flex:1" onclick="audioReplay()" ${canNew ? '' : 'disabled'}>↺ ${t('replay')}</button></div>
+    <p class="muted" style="margin-bottom:0">${max ? t('playsLeft', Math.max(0, max - used), max) : t('unlimited')}${q.audio ? '' : ' · ' + t('ttsNote')}</p>`;
+}
+function setAudio(st){ audioState = st; const b = $('#audioBox'); if(b && view === 'exam' && session) b.innerHTML = audioInner(curQ()); }
+function audioToggle(){
+  if(audioState === 'playing'){ if(audioKind === 'file' && audioEl){ audioEl.pause(); setAudio('paused'); } else { stopAudio(); setAudio('idle'); } }
+  else if(audioState === 'paused' && audioEl){ audioEl.play(); setAudio('playing'); }
+  else startPlay();
+}
+function audioReplay(){ stopAudio(); startPlay(); }
+function startPlay(){
+  const q = curQ(), max = maxPlays(), used = session.plays[q.id] || 0;
+  if(max && used >= max){ toast(t('noPlays')); return; }
+  session.plays[q.id] = used + 1; saveSession();
+  if(q.audio){
+    let fell = false;
+    const fallback = () => { if(fell) return; fell = true; audioEl = null; speakText(q.script || q.question); };
+    audioKind = 'file';
+    audioEl = new Audio(q.audio);
+    audioEl.onended = () => setAudio('idle');
+    audioEl.onerror = fallback;
+    audioEl.play().then(() => setAudio('playing')).catch(fallback);
+  } else speakText(q.script || q.question);
+}
+function enVoices(){
+  if(!('speechSynthesis' in window)) return [];
+  const all = speechSynthesis.getVoices();
+  const us = all.filter(v => /^en[-_]US/i.test(v.lang));
+  return us.length ? us : all.filter(v => /^en/i.test(v.lang));
+}
+function speakText(text){
+  if(!('speechSynthesis' in window)){ toast(t('noTts')); setAudio('idle'); return; }
+  speechSynthesis.cancel();
+  audioKind = 'tts';
+  const tok = ++ttsToken, voices = enVoices(), parts = [];
+  String(text).split(/\n+/).filter(s => s.trim()).forEach(line => {
+    const m = line.match(/^\s*(M|W|Man|Woman)\s*:\s*/i);
+    const who = m ? (/^w/i.test(m[1]) ? 'W' : 'M') : '';
+    const body = m ? line.slice(m[0].length) : line;
+    (body.match(/[^.!?]+[.!?]*/g) || [body]).forEach(chunk => { if(chunk.trim()) parts.push({ who, text:chunk.trim() }); });
+  });
+  parts.forEach((pt, k) => {
+    const u = new SpeechSynthesisUtterance(pt.text);
+    u.lang = 'en-US'; u.rate = CONFIG.ttsRate;
+    if(pt.who === 'W'){ u.pitch = 1.2; if(voices[1] || voices[0]) u.voice = voices[1] || voices[0]; }
+    else { u.pitch = pt.who === 'M' ? 0.85 : 1; if(voices[0]) u.voice = voices[0]; }
+    if(k === parts.length - 1) u.onend = () => { if(tok === ttsToken) setAudio('idle'); };
+    speechSynthesis.speak(u);
+  });
+  setAudio('playing');
+}
+function stopAudio(){
+  ttsToken++;
+  if(audioEl){ audioEl.onended = audioEl.onerror = null; audioEl.pause(); audioEl = null; }
+  if('speechSynthesis' in window) speechSynthesis.cancel();
+  audioState = 'idle';
+}
+
+/* ---------- Submit & scoring ---------- */
+function toeicRange(frac){
+  const mid = 10 + frac * 980;
+  return [Math.max(10, Math.round((mid - 60) / 5) * 5), Math.min(990, Math.round((mid + 60) / 5) * 5)];
+}
+function submit(auto){
+  const s = session; if(!s) return;
+  const un = s.ids.filter(id => s.answers[id] === undefined).length, fl = Object.keys(s.flags).length;
+  if(!auto && !(s.feedback && un === 0) && !confirm(t('submitConfirm', un, fl))) return;
+  stopAudio(); stopTimer(); showGrid = false;
+  const today = dstr(), perPart = {}, items = [];
+  let c = 0;
+  s.ids.forEach(id => {
+    const q = QMAP.get(id), a = s.answers[id], ok = a === q.answer, tp = q.topic || 'General';
+    if(ok) c++;
+    const pp = perPart[q.part] || (perPart[q.part] = { c:0, n:0 }); pp.n++; if(ok) pp.c++;
+    const tt = S.topics[tp] || (S.topics[tp] = { c:0, n:0 }); tt.n++; if(ok) tt.c++;
+    if(ok) delete S.mistakes[id]; else S.mistakes[id] = { n:((S.mistakes[id] || {}).n || 0) + 1, last:today };
+    items.push({ id, a });
+  });
+  const n = s.ids.length;
+  let score100 = null;
+  if(s.mode === 'mock'){
+    let pts = 0, avail = 0;
+    CONFIG.parts.forEach(p => { const pp = perPart[p.id]; if(pp && pp.n){ pp.pts = pp.c / pp.n * partPoints(p); pts += pp.pts; avail += partPoints(p); } });
+    const k = avail ? CONFIG.totalPoints / avail : 0;
+    CONFIG.parts.forEach(p => { if(perPart[p.id]) perPart[p.id].pts *= k; });
+    score100 = Math.round(pts * k * 10) / 10;
+  }
+  const res = { mode:s.mode, part:s.part, topic:s.topic, date:today, ts:Date.now(), c, n, pct:Math.round(c / n * 1000) / 10, score100, perPart };
+  S.attempts.push(res);
+  if(S.attempts.length > 1000) S.attempts.splice(0, S.attempts.length - 1000);
+  S.activity[today] = (S.activity[today] || 0) + n;
+  if(s.mode === 'practice' || s.mode === 'part') planAuto('practice:' + s.part);
+  else if(s.mode === 'mock' || s.mode === 'review') planAuto(s.mode);
+  save();
+  queuePractice(items);                     // friends: queue answers for server-side checking
+  lastResult = { ...res, items, dur:Date.now() - s.startedAt, auto:!!auto };
+  session = null; saveSession(); resFilter = 'wrong';
+  go('result');
+  afterPracticeSync();
+}
+function setResFilter(f){ resFilter = f; render(); }
+
+function vResult(){
+  const r = lastResult; if(!r) return vHome();
+  let h = `<h1>${t('results')}</h1><div class="card" style="text-align:center">
+    <div class="muted">${t('mode_' + r.mode)}${r.part ? ' · ' + esc(pName(partById(r.part))) : ''}${r.topic ? ' · ' + esc(r.topic) : ''}</div>`;
+  h += r.score100 !== null
+    ? `<div class="big">${fmt1(r.score100)}<span class="muted" style="font-size:1.2rem"> / ${CONFIG.totalPoints}</span></div>`
+    : `<div class="big">${r.c}<span class="muted" style="font-size:1.2rem"> / ${r.n}</span></div><div>${r.pct}%</div>`;
+  h += `<p class="muted">${t('correctN', r.c, r.n)} · ${t('timeUsed')} ${fmtTime(r.dur)}${r.auto ? ' · ' + t('autoSubmitted') : ''}</p></div>`;
+  h += `<div class="card"><h3>${t('byPart')}</h3>${CONFIG.parts.filter(p => r.perPart[p.id]).map(p => {
+    const pp = r.perPart[p.id];
+    return hbar(p.icon + ' ' + pName(p), pp.c / pp.n, r.mode === 'mock' ? fmt1(pp.pts) + '/' + fmt1(partPoints(p)) : pp.c + '/' + pp.n);
+  }).join('')}</div>`;
+  if(r.mode !== 'review'){
+    const [lo, hi] = toeicRange(r.score100 !== null ? r.score100 / CONFIG.totalPoints : r.c / r.n);
+    h += `<div class="card"><h3>${t('toeicEst')}</h3><div class="big" style="font-size:2rem">${lo}–${hi}</div><p class="muted">⚠️ ${t('toeicNote')}</p></div>`;
+  }
+  const wrong = r.items.filter(it => it.a !== QMAP.get(it.id)?.answer).length;
+  h += `<div class="row">${wrong ? `<button class="btn pri" onclick="startSession('review')">🔁 ${t('reviewNow')}</button>` : ''}<button class="btn" onclick="go('home')">${t('home')}</button></div>`;
+  h += `<h2>${t('answers')}</h2><div class="seg"><button class="${resFilter === 'wrong' ? 'on' : ''}" onclick="setResFilter('wrong')">${t('wrongOnly')} (${wrong})</button><button class="${resFilter === 'all' ? 'on' : ''}" onclick="setResFilter('all')">${t('all')}</button></div>`;
+  let shown = 0;
+  r.items.forEach((it, k) => {
+    const q = QMAP.get(it.id); if(!q) return;
+    const ok = it.a === q.answer;
+    if(resFilter === 'wrong' && ok) return;
+    shown++;
+    h += `<div class="card"><div class="muted">#${k + 1} · ${esc(pName(partById(q.part)))} · ${esc(q.topic || '')}</div>
+      ${q.passage ? `<details><summary>${t('passage')}</summary><div class="passage">${esc(q.passage)}</div></details>` : ''}
+      <div class="q">${esc(q.question)}</div>
+      <p>${t('yourAnswer')}: <b class="${ok ? 'ok-t' : 'bad-t'}">${it.a === undefined ? '—' : LET[it.a] + '. ' + esc(q.choices[it.a])}</b></p>${explain(q, it.a)}</div>`;
+  });
+  if(!shown) h += `<p class="card">${t('noMistakes')}</p>`;
+  return h;
+}
+
+/* =========================================================
+   8) PROGRESS DASHBOARD
+   ========================================================= */
+function calcStreak(){ let d = dstr(); if(!S.activity[d]) d = addDays(d, -1); let n = 0; while(S.activity[d]){ n++; d = addDays(d, -1); } return n; }
+function partAcc(){ const m = {}; S.attempts.forEach(a => Object.entries(a.perPart || {}).forEach(([k, v]) => { const x = m[k] || (m[k] = { c:0, n:0 }); x.c += v.c; x.n += v.n; })); return m; }
+function weakTopics(){
+  let list = Object.entries(S.topics).map(([k, v]) => ({ k, acc:v.c / v.n, n:v.n }));
+  if(list.some(x => x.n >= 2)) list = list.filter(x => x.n >= 2);
+  return list.sort((a, b) => a.acc - b.acc || b.n - a.n).slice(0, 5);
+}
+function chartSVG(){
+  const days = 14, W = 340, H = 190, pl = 36, pb = 26, pt = 10, cw = (W - pl - 4) / days, ih = H - pb - pt;
+  let g = '';
+  [0, .5, 1].forEach(v => { const y = H - pb - ih * v; g += `<line x1="${pl}" x2="${W}" y1="${y}" y2="${y}" style="stroke:var(--line)"/><text x="${pl - 6}" y="${y + 5}" text-anchor="end">${v * 100}</text>`; });
+  for(let k = 0; k < days; k++){
+    const d = addDays(dstr(), k - days + 1), at = S.attempts.filter(a => a.date === d);
+    const n = at.reduce((s, a) => s + a.n, 0), c = at.reduce((s, a) => s + a.c, 0), x = pl + k * cw;
+    if(n){ const hh = Math.max(ih * c / n, 2); g += `<rect x="${x + 3}" y="${H - pb - hh}" width="${cw - 6}" height="${hh}" rx="3" style="fill:var(--pri)"><title>${d}: ${Math.round(c / n * 100)}%</title></rect>`; }
+    if((days - 1 - k) % 2 === 0) g += `<text x="${x + cw / 2}" y="${H - 5}" text-anchor="middle">${Number(d.slice(8))}</text>`;
+  }
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${t('chartAria')}" font-size="16" style="fill:var(--muted)">${g}</svg>`;
+}
+function vProgress(){
+  const n = S.attempts.reduce((s, a) => s + a.n, 0), c = S.attempts.reduce((s, a) => s + a.c, 0);
+  const mocks = S.attempts.filter(a => a.mode === 'mock' && a.score100 != null);
+  const best = mocks.length ? Math.max(...mocks.map(a => a.score100)) : null;
+  let h = `<h1>${t('progress')}</h1><div class="stats">${stat(t('streak'), '🔥 ' + calcStreak())}${stat(t('answeredTotal'), n)}${stat(t('accuracy'), n ? Math.round(c / n * 100) + '%' : '—')}${stat(t('bestMock'), best != null ? fmt1(best) : '—')}</div>`;
+  if(!S.attempts.length) return h + `<div class="card"><p>${t('noData')}</p><button class="btn pri" onclick="go('practice')">${t('m1')}</button></div>`;
+  h += `<div class="card"><h3>${t('chartTitle')}</h3>${chartSVG()}</div>`;
+  const pa = partAcc();
+  h += `<div class="card"><h3>${t('partAccTitle')}</h3>${CONFIG.parts.map(p => { const x = pa[p.id]; return hbar(p.icon + ' ' + pName(p), x ? x.c / x.n : 0, x ? Math.round(x.c / x.n * 100) + '%' : '—'); }).join('')}</div>`;
+  WEAK = weakTopics();
+  h += `<div class="card"><h3>${t('weakTopics')}</h3>${WEAK.map((w, i) => `<button class="hbar linkrow" onclick="startTopic(${i})"><span class="lbl">${esc(w.k)}</span><span class="track"><i style="width:${Math.round(w.acc * 100)}%"></i></span><span class="val">${Math.round(w.acc * 100)}% ›</span></button>`).join('') || `<p class="muted">${t('noData')}</p>`}</div>`;
+  h += `<div class="card"><h3>${t('recent')}</h3>${S.attempts.slice(-8).reverse().map(a => `<div class="task"><span>${fmtDate(a.date)}<br><span class="muted">${t('mode_' + a.mode)}${a.part ? ' · ' + t('part') + ' ' + a.part : ''}${a.topic ? ' · ' + esc(a.topic) : ''}</span></span><b style="margin-left:auto">${a.score100 != null ? fmt1(a.score100) + '/' + CONFIG.totalPoints : a.c + '/' + a.n}</b></div>`).join('')}</div>`;
+  return h;
+}
+
+/* =========================================================
+   9) STUDY PLAN
+   ========================================================= */
+function planTasks(i, total){
+  const left = total - i, T = (k, en, th, act) => ({ k, en, th, act });
+  const cards = T('cards', 'Flashcards: due cards', 'ทบทวนแฟลชการ์ดที่ถึงกำหนด', 'cards');
+  const review = T('review', 'Review mistakes', 'ทบทวนข้อที่ผิด', 'review');
+  if(left === 1) return [T('cards', 'Light review: flashcards only', 'ทบทวนคำศัพท์เบา ๆ', 'cards'), review, T('rest', 'Prepare ID & stationery, sleep early', 'เตรียมบัตร อุปกรณ์ และนอนให้เร็ว', '')];
+  if(left <= 3) return [review, T('weak', 'Practice your weakest part', 'ฝึกพาร์ทที่อ่อนที่สุด', 'weak'), cards];
+  if(left % 7 === 0) return [T('mock', 'Full mock exam (timed)', 'ทำข้อสอบจำลองเต็มชุด (จับเวลา)', 'mock'), T('review', 'Review mistakes from the mock', 'ทบทวนข้อผิดจากข้อสอบจำลอง', 'review'), cards];
+  const p = CONFIG.parts[i % CONFIG.parts.length];
+  const extra = {
+    1: T('x', 'Shadowing: replay 3 listening items and repeat aloud', 'ฝึก Shadowing: ฟังซ้ำ 3 ข้อแล้วพูดตาม', ''),
+    2: T('x', 'Read 1 short English article and note 5 new words', 'อ่านบทความภาษาอังกฤษสั้น ๆ 1 เรื่อง จดคำใหม่ 5 คำ', ''),
+    3: T('x', 'Study 1 grammar point from your weakest topics', 'ทบทวนไวยากรณ์ 1 หัวข้อจากหัวข้อที่อ่อน', '')
+  }[p.id] || T('x', 'Review your notes', 'ทบทวนโน้ต', '');
+  return [T('practice:' + p.id, `Practice Part ${p.id}: ${p.en} (${CONFIG.practiceSize} Qs)`, `ฝึกพาร์ท ${p.id}: ${p.th} (${CONFIG.practiceSize} ข้อ)`, 'practice:' + p.id), cards, extra];
+}
+function planDays(){
+  const { start, examDate } = S.plan;
+  if(!start || !examDate) return [];
+  const span = diffDays(start, examDate); if(span <= 0) return [];
+  const total = Math.min(span, CONFIG.planMaxDays), s0 = addDays(examDate, -total);
+  return Array.from({ length:total }, (_, i) => ({ i, date:addDays(s0, i), tasks:planTasks(i, total) }));
+}
+function setExamDate(){
+  const v = $('#examDate').value;
+  if(!v || v <= dstr()){ toast(t('planEmpty')); return; }
+  S.plan.examDate = v; S.plan.start = dstr(); save(); render();
+}
+function setDone(date, k, on){
+  const a = S.plan.done[date] || (S.plan.done[date] = []), i = a.indexOf(k);
+  if(on && i < 0) a.push(k); if(!on && i >= 0) a.splice(i, 1);
+  save(); updatePlanProgress();
+}
+function planAuto(act){
+  const d = planDays().find(x => x.date === dstr()); if(!d) return;
+  const a = S.plan.done[d.date] || (S.plan.done[d.date] = []);
+  d.tasks.forEach(tk => { if((tk.act === act || (tk.act === 'weak' && act.startsWith('practice:'))) && !a.includes(tk.k)) a.push(tk.k); });
+}
+function runAction(act){
+  if(act === 'cards') go('cards');
+  else if(act === 'review') startSession('review');
+  else if(act === 'mock') go('mockIntro');
+  else if(act === 'weak'){ const pa = partAcc(); const p = CONFIG.parts.slice().sort((a, b) => { const x = pa[a.id], y = pa[b.id]; return (x ? x.c / x.n : 0) - (y ? y.c / y.n : 0); })[0]; startSession('practice', p.id); }
+  else if(act.startsWith('practice:')) startSession('practice', Number(act.split(':')[1]));
+}
+function planStats(){ let tot = 0, dn = 0; planDays().forEach(d => { const done = S.plan.done[d.date] || []; tot += d.tasks.length; dn += d.tasks.filter(x => done.includes(x.k)).length; }); return [dn, tot]; }
+function updatePlanProgress(){ const el = $('#planProg'); if(!el) return; const [dn, tot] = planStats(); el.querySelector('span').textContent = dn + '/' + tot; el.querySelector('i').style.width = (tot ? dn / tot * 100 : 0) + '%'; }
+function dayCard(d){
+  const today = dstr(), done = S.plan.done[d.date] || [], lang = S.settings.lang;
+  const cls = d.date < today ? 'past' : d.date === today ? 'today' : '';
+  return `<div class="card day ${cls}"><b>${fmtDate(d.date)}</b> <span class="muted">· ${t('dayN', d.i + 1)} · ${t('daysLeftN', diffDays(d.date, S.plan.examDate))}</span>
+    ${d.tasks.map(tk => `<div class="task"><label><input type="checkbox" ${done.includes(tk.k) ? 'checked' : ''} onchange="setDone('${d.date}','${tk.k}',this.checked)"><span>${esc(tk[lang])}</span></label>
+    ${tk.act && d.date === today ? `<button class="btn" onclick="runAction('${tk.act}')">${t('go')}</button>` : ''}</div>`).join('')}</div>`;
+}
+function vPlan(){
+  const today = dstr();
+  let h = `<h1>${t('plan')}</h1><div class="card"><label for="examDate"><b>${t('examDate')}</b></label><div class="space"></div>
+    <input type="date" id="examDate" value="${esc(S.plan.examDate)}" min="${addDays(today, 1)}"><div class="space"></div>
+    <button class="btn pri" onclick="setExamDate()">${t('genPlan')}</button></div>`;
+  if(!S.plan.examDate) return h + `<p class="muted">${t('planEmpty')}</p>`;
+  if(S.plan.examDate === today) return h + `<div class="card"><b>${t('examToday')}</b></div>`;
+  const days = planDays();
+  if(S.plan.examDate < today || !days.length) return h + `<p>${t('examPassed')}</p>`;
+  const [dn, tot] = planStats();
+  h += `<div class="card" id="planProg"><b>${t('planProgress')}</b> <span>${dn}/${tot}</span><div class="prog"><i style="width:${tot ? dn / tot * 100 : 0}%"></i></div>
+    ${days[0].date > today ? `<p class="muted">${t('planStarts', fmtDate(days[0].date))}</p>` : ''}</div>`;
+  const td = days.find(d => d.date === today);
+  if(td) h += `<h2>${t('today')}</h2>` + dayCard(td);
+  const next = days.filter(d => d.date > today).slice(0, 6);
+  if(next.length) h += `<h2>${t('upcoming')}</h2>` + next.map(dayCard).join('');
+  h += `<details class="card"><summary>${t('showAll')} (${days.length})</summary>${days.map(dayCard).join('')}</details>`;
+  return h;
+}
+
+/* =========================================================
+   10) FLASHCARDS (Leitner)
+   ========================================================= */
+function syncCards(){
+  const today = dstr();
+  let added = Object.values(S.cards).filter(c => c.added === today).length;
+  BANK.vocab.forEach(v => { if(S.cards[v.word] || added >= CONFIG.newCardsPerDay) return; S.cards[v.word] = { box:1, due:today, added:today }; added++; });
+  save();
+}
+function dueCards(){ const today = dstr(); return BANK.vocab.filter(v => S.cards[v.word] && S.cards[v.word].due <= today); }
+function startCards(all){
+  syncCards();
+  const list = all ? BANK.vocab.filter(v => S.cards[v.word]) : dueCards();
+  if(!list.length){ toast(t('noDue')); return; }
+  cardQ = shuffle(list); cardFlip = false; render(); window.scrollTo(0, 0);
+}
+function exitCards(){ stopAudio(); cardQ = null; cardFlip = false; render(); }
+function flip(){ cardFlip = !cardFlip; render(); }
+function speakWord(){ const v = cardQ && cardQ[0]; if(v) speakText(v.word + '.\n' + (v.example || '')); }
+function grade(ok){
+  stopAudio();
+  const v = cardQ.shift(), c = S.cards[v.word], today = dstr();
+  if(ok){ c.box = Math.min(5, c.box + 1); c.due = addDays(today, CONFIG.leitnerDays[c.box - 1]); }
+  else { c.box = 1; c.due = today; cardQ.push(v); }
+  S.activity[today] = (S.activity[today] || 0) + 1;
+  cardFlip = false;
+  if(!cardQ.length){ cardQ = null; planAuto('cards'); toast(t('cardsDone')); }
+  save(); render();
+}
+function vCards(){
+  if(cardQ && cardQ.length){
+    const v = cardQ[0], c = S.cards[v.word];
+    return `<div class="top"><div class="row" style="align-items:center;gap:8px">
+      <button class="iconbtn" style="flex:none" onclick="exitCards()" aria-label="${t('exit')}">✕</button>
+      <div style="flex:1"><b>${t('flashcards')}</b><div class="muted">${t('leftN', cardQ.length)}</div></div></div></div>
+      <div class="card flash" onclick="flip()" role="button" tabindex="0">
+        <div class="muted">${t('box')} ${c.box}/5</div><div class="w">${esc(v.word)}</div><div class="muted">${esc(v.pos || '')}</div>
+        ${cardFlip ? `<hr style="border:0;border-top:1px solid var(--line);width:100%"><p><b>${esc(v.meaning_th || '')}</b></p><p>${esc(v.meaning_en || '')}</p>${v.example ? `<p class="muted"><i>“${esc(v.example)}”</i></p>` : ''}`
+                   : `<p class="muted">${t('tapReveal')}</p>`}
+      </div>
+      <button class="btn ghost" onclick="speakWord()">🔊 ${t('listen')}</button>
+      <div class="bar"><div class="in">${cardFlip
+        ? `<button class="btn" onclick="grade(false)">✗ ${t('again')}</button><button class="btn pri" onclick="grade(true)">✓ ${t('know')}</button>`
+        : `<button class="btn pri" onclick="flip()">${t('showAnswer')}</button>`}</div></div>`;
+  }
+  const due = dueCards().length, unseen = BANK.vocab.filter(v => !S.cards[v.word]).length;
+  const boxes = [1, 2, 3, 4, 5].map(b => Object.values(S.cards).filter(c => c.box === b).length);
+  const future = Object.values(S.cards).map(c => c.due).filter(d => d > dstr()).sort()[0];
+  return `<h1>${t('flashcards')}</h1><div class="card" style="text-align:center"><div class="big">${due}</div><p class="muted">${t('dueToday')}</p>
+    ${!due && future ? `<p class="muted">${t('nextDue', fmtDate(future))}</p>` : ''}
+    <button class="btn pri" onclick="startCards(false)" ${due ? '' : 'disabled'}>${t('studyDue')}</button><div class="space"></div>
+    <button class="btn" onclick="startCards(true)">${t('cram')}</button></div>
+    <div class="card"><h3>${t('leitner')}</h3><div class="row" style="text-align:center">${boxes.map((n, i) => `<div><div class="muted">${t('box')} ${i + 1}</div><b style="font-size:1.3rem">${n}</b></div>`).join('')}</div>
+    <p class="muted">${t('leitnerHelp', CONFIG.leitnerDays.join(', '))}</p><p class="muted">${t('newCards', unseen, CONFIG.newCardsPerDay)}</p></div>`;
+}
+
+/* =========================================================
+   11) SETTINGS / BACKUP
+   ========================================================= */
+function setLang(l){ S.settings.lang = l; save(); render(); }
+function setTheme(m){ S.settings.theme = m; save(); applyTheme(); render(); }
+async function saveJsonFile(name, text){
+  const file = new File([text], name, { type:'application/json' });
+  try{
+    if(matchMedia('(pointer:coarse)').matches && navigator.canShare && navigator.canShare({ files:[file] })){ await navigator.share({ files:[file], title:name }); return; }
+  }catch(e){ if(e.name === 'AbortError') return; }
+  const a = document.createElement('a'); a.href = URL.createObjectURL(file); a.download = name;
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+}
+async function exportData(){
+  await saveJsonFile(`kstep-backup-${dstr()}.json`, JSON.stringify({ app:'kstep-prep', exportedAt:new Date().toISOString(), state:S }, null, 2));
+}
+function importData(file){
+  const r = new FileReader();
+  r.onload = () => {
+    try{
+      const j = JSON.parse(r.result), st = j.state || j;
+      if(!st || typeof st !== 'object' || !Array.isArray(st.attempts)) throw new Error('bad');
+      if(!confirm(t('importConfirm'))) return;
+      localStorage.setItem(STORE_KEY, JSON.stringify(st));
+      S = loadState(); applyTheme(); syncCards(); render(); toast(t('imported'));
+    }catch(e){ toast(t('importBad')); }
+  };
+  r.readAsText(file);
+}
+async function reloadBank(){ await loadBank(); syncCards(); render(); toast(bankErr ? t('bankErr') : t('reloaded')); }
+function resetAll(){
+  if(!confirm(t('resetConfirm'))) return;
+  const lang = S.settings.lang;
+  localStorage.removeItem(STORE_KEY); localStorage.removeItem(SESSION_KEY);
+  S = defaultState(); S.settings.lang = lang; syncCards(); save(); go('home');
+}
+function vSettings(){
+  const L = S.settings.lang, th = S.settings.theme;
+  return `<h1>${t('settings')}</h1>
+  <div class="card"><h3>${t('language')}</h3><div class="seg"><button class="${L === 'th' ? 'on' : ''}" onclick="setLang('th')">ไทย</button><button class="${L === 'en' ? 'on' : ''}" onclick="setLang('en')">English</button></div></div>
+  <div class="card"><h3>${t('theme')}</h3><div class="seg">${['system', 'light', 'dark'].map(m => `<button class="${th === m ? 'on' : ''}" onclick="setTheme('${m}')">${t('th_' + m)}</button>`).join('')}</div></div>
+  <div class="card"><h3>${t('backup')}</h3><p class="muted">${t('backupHelp')}</p><div class="stack">
+    <button class="btn" onclick="exportData()">⬇️ ${t('exportBtn')}</button>
+    <button class="btn" onclick="document.getElementById('importFile').click()">⬆️ ${t('importBtn')}</button></div>
+    <input type="file" id="importFile" accept="application/json,.json" hidden onchange="if(this.files[0])importData(this.files[0]);this.value=''"></div>
+  ${socialSettings()}
+  <div class="card"><h3>${t('bank')}</h3><p>${CONFIG.parts.map(p => `${p.icon} ${esc(pName(p))}: ${countPart(p.id)}`).join('<br>')}<br>🃏 ${t('vocabN', BANK.vocab.length)}</p>
+    <button class="btn" onclick="reloadBank()">🔄 ${t('reloadBank')}</button></div>
+  <div class="card"><h3>${t('examCfg')}</h3><table><tr><th>${t('part')}</th><th>${t('count')}</th><th>${t('time')}</th><th>${t('points')}</th></tr>
+    ${CONFIG.parts.map(p => `<tr><td>${p.id}</td><td>${p.count}</td><td>${p.minutes}</td><td>${fmt1(partPoints(p))}</td></tr>`).join('')}</table>
+    <p class="muted">${t('total')}: ${totalCount()} ${t('questions')} · ${CONFIG.totalPoints} ${t('points')} · ${CONFIG.totalMinutes} ${t('minutes')}</p></div>
+  <div class="card"><button class="btn" style="color:var(--bad);border-color:var(--bad)" onclick="resetAll()">${t('reset')}</button></div>
+  <p class="muted">${t('disclaimer')}</p>`;
+}
+
+/* =========================================================
+   12) FRIENDS / SQUADS — Phase A (online only, async, no polling)
+   ========================================================= */
+const ID_KEY = 'kstep-identity-v1', PENDING_KEY = 'kstep-pending-v1', JOIN_KEY = 'kstep-join-code', SEL_KEY = 'kstep-squad-sel';
+const CODE_RE = /^[A-HJ-NP-Z2-9]{5}$/;
+let ID = loadIdentity();
+const F = { loading:false, busy:false, err:'', data:null, at:0, editing:false, cheerTo:null };
+let FCACHE = {}, flushing = false;
+
+function loadIdentity(){ try{ const j = JSON.parse(localStorage.getItem(ID_KEY) || 'null'); return j && j.playerId && j.token ? j : null; }catch(e){ return null; } }
+function saveIdentity(){ if(ID) localStorage.setItem(ID_KEY, JSON.stringify(ID)); else localStorage.removeItem(ID_KEY); }
+function randStr(n){ const abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789', b = new Uint8Array(n); crypto.getRandomValues(b); return Array.from(b, x => abc[x % 62]).join(''); }
+function cleanName(s, max){ return String(s || '').replace(/[\u0000-\u001F\u007F<>]/g, '').replace(/\s+/g, ' ').trim().slice(0, max); }
+function apiError(code){ const e = new Error(code); e.code = code; return e; }
+function errMsg(e){ const c = (e && e.code) || 'SERVER', k = 'err_' + c, s = t(k); return s === k ? t('err_SERVER') + ' (' + c + ')' : s; }
+const socialReady = () => !!(CONFIG.apiUrl && ID && ID.registered);
+
+/* Central API call: POST text/plain (no CORS preflight), 8s timeout, 1 retry on network/busy */
+async function api(action, payload = {}, retries = 1){
+  if(!CONFIG.apiUrl) throw apiError('NO_API');
+  if(!navigator.onLine) throw apiError('OFFLINE');
+  const body = JSON.stringify({ action, payload, auth: ID ? { playerId:ID.playerId, token:ID.token } : null });
+  let last = apiError('NETWORK');
+  for(let i = 0; i <= retries; i++){
+    const ctrl = new AbortController(), tm = setTimeout(() => ctrl.abort(), CONFIG.social.timeoutMs);
+    try{
+      const r = await fetch(CONFIG.apiUrl, { method:'POST', headers:{ 'Content-Type':'text/plain;charset=utf-8' }, body, signal:ctrl.signal, redirect:'follow', cache:'no-store' });
+      clearTimeout(tm);
+      if(!r.ok) throw apiError('NETWORK');
+      const j = await r.json();
+      if(j && j.ok) return j.data;
+      throw apiError((j && j.error) || 'SERVER');
+    }catch(e){
+      clearTimeout(tm);
+      if(e.code && e.code !== 'NETWORK' && e.code !== 'BUSY') throw e;   // real server answer → do not retry
+      last = e.code ? e : apiError('NETWORK');
+    }
+    if(i < retries) await new Promise(res => setTimeout(res, 700));
+  }
+  throw navigator.onLine ? last : apiError('OFFLINE');
+}
+
+/* ---- Offline queue of answered questions (server re-checks every answer) ---- */
+function getPending(){ try{ const a = JSON.parse(localStorage.getItem(PENDING_KEY) || '[]'); return Array.isArray(a) ? a : []; }catch(e){ return []; } }
+function setPending(a){ if(a.length) localStorage.setItem(PENDING_KEY, JSON.stringify(a.slice(-CONFIG.social.pendingMax))); else localStorage.removeItem(PENDING_KEY); }
+function queuePractice(items){
+  if(!socialReady()) return;
+  const a = getPending();
+  items.forEach(it => { if(it.a !== undefined) a.push({ id:it.id, a:it.a }); });
+  setPending(a);
+}
+function afterPracticeSync(){
+  if(!socialReady() || !getPending().length) return;
+  if(!navigator.onLine){ toast(t('queuedOffline')); return; }
+  flushPending(false);
+}
+async function flushPending(silent){
+  if(flushing || !socialReady() || !navigator.onLine || !getPending().length) return;
+  flushing = true;
+  let added = 0, capped = false, cap = 0, err = null;
+  try{
+    let q = getPending();
+    while(q.length){
+      const batch = q.slice(0, CONFIG.social.syncBatch);
+      const r = await api('syncPractice', { items:batch });
+      added += r.added || 0; capped = capped || !!r.capped; cap = r.today ? r.today.cap : cap;
+      setPending(getPending().slice(batch.length));
+      q = getPending();
+    }
+    FCACHE = {};
+  }catch(e){
+    err = e;
+    if(e.code === 'NOT_REGISTERED' && ID){ ID.registered = false; saveIdentity(); }
+  }
+  flushing = false;
+  if(!silent){
+    if(err) toast(errMsg(err));
+    else toast(added ? t('synced', added) + (capped ? ' · ' + t('syncedCap', cap) : '') : capped ? t('syncedCap', cap) : t('syncedZero'));
+  }
+  if(view === 'friends') render();
+}
+
+/* ---- Loading squad data (only on open / refresh / after actions) ---- */
+async function friendsEnter(force){
+  if(!socialReady() || !navigator.onLine){ if(view === 'friends') render(); return; }
+  await flushPending(true);
+  const jc = localStorage.getItem(JOIN_KEY);
+  if(jc){
+    localStorage.removeItem(JOIN_KEY);
+    if(confirm(t('joinConfirm', jc))){ await joinSquad(jc); return; }
+  }
+  await loadSquad(localStorage.getItem(SEL_KEY) || '', !!force);
+}
+async function loadSquad(code, force){
+  const key = code || '_', c = FCACHE[key];
+  if(!force && c && Date.now() - c.at < CONFIG.social.cacheMs){ setFData(c.data); if(view === 'friends') render(); return; }
+  F.loading = true; F.err = ''; if(view === 'friends') render();
+  try{ const d = await api('squadState', { code }); setFData(d); FCACHE[key] = { at:Date.now(), data:d }; }
+  catch(e){ F.err = e.code || 'SERVER'; if(e.code === 'NOT_REGISTERED' && ID){ ID.registered = false; saveIdentity(); } }
+  F.loading = false; if(view === 'friends') render();
+}
+function setFData(d){
+  F.data = d; F.at = Date.now(); F.err = '';
+  const code = d.squad ? d.squad.code : '';
+  FCACHE[code || '_'] = { at:F.at, data:d };
+  if(code) localStorage.setItem(SEL_KEY, code); else localStorage.removeItem(SEL_KEY);
+  if(d.profile && ID){ ID.name = d.profile.name; ID.avatar = d.profile.avatar; ID.hideRank = !!d.profile.hideRank; ID.registered = true; saveIdentity(); }
+}
+async function fAction(fn){
+  if(F.busy) return;
+  F.busy = true; if(view === 'friends') render();
+  try{ await fn(); }catch(e){ toast(errMsg(e)); }
+  F.busy = false; if(view === 'friends') render();
+}
+
+/* ---- Actions ---- */
+async function doRegister(){
+  const name = cleanName($('#fName').value, CONFIG.social.nameMax);
+  const av = (document.querySelector('input[name=av]:checked') || {}).value;
+  if(!name){ toast(t('err_NAME_INVALID')); return; }
+  if(!av){ toast(t('err_AVATAR_INVALID')); return; }
+  if(!ID) ID = { playerId:'p_' + randStr(20), token:randStr(40), registered:false, hideRank:false };
+  ID.name = name; ID.avatar = av; saveIdentity();
+  const wasNew = !ID.registered;
+  await fAction(async () => {
+    const d = await api('register', { name, avatar:av, hideRank:!!ID.hideRank });
+    ID.registered = true; F.editing = false; FCACHE = {}; setFData(d);
+    toast(wasNew ? t('welcome', name) : t('saved'));
+  });
+  if(socialReady()){ const jc = localStorage.getItem(JOIN_KEY); if(jc){ localStorage.removeItem(JOIN_KEY); await joinSquad(jc); } }
+}
+function createSquad(){
+  const name = cleanName(($('#sqName') || {}).value, 20);
+  return fAction(async () => { const d = await api('createSquad', { name }, 0); FCACHE = {}; setFData(d); });
+}
+function joinSquad(code){
+  code = String(code || ($('#joinCode') || {}).value || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+  if(!CODE_RE.test(code)){ toast(t('err_BAD_CODE')); return Promise.resolve(); }
+  return fAction(async () => { const d = await api('joinSquad', { code }); FCACHE = {}; setFData(d); });
+}
+function leaveSquad(code){
+  if(!confirm(t('leaveConfirm', code))) return;
+  fAction(async () => { const d = await api('leaveSquad', { code }); FCACHE = {}; setFData(d); });
+}
+function openCheer(id){ F.cheerTo = id; render(); }
+function closeCheer(){ F.cheerTo = null; render(); }
+function sendCheer(k){
+  const code = F.data && F.data.squad ? F.data.squad.code : '';
+  const to = F.cheerTo;
+  fAction(async () => { const d = await api('cheer', { code, toId:to, cheer:k }, 0); F.cheerTo = null; FCACHE = {}; setFData(d); toast(t('cheerSent')); });
+}
+async function syncNowBtn(){
+  if(!navigator.onLine){ toast(t('err_OFFLINE')); return; }
+  await flushPending(false);
+  await loadSquad(F.data && F.data.squad ? F.data.squad.code : '', true);
+}
+async function shareSquad(code){
+  const url = location.origin + location.pathname + '?squad=' + code;
+  const text = t('shareText', code);
+  try{ if(navigator.share){ await navigator.share({ title:'K-StEP Prep', text, url }); return; } }
+  catch(e){ if(e.name === 'AbortError') return; }
+  try{ await navigator.clipboard.writeText(text + '\n' + url); toast(t('copied')); }
+  catch(e){ prompt(t('copyThis'), url); }
+}
+async function toggleHideRank(on){
+  if(!socialReady()){ toast(t('needProfile')); render(); return; }
+  try{
+    const d = await api('register', { name:ID.name, avatar:ID.avatar, hideRank:on });
+    FCACHE = {}; setFData(d); toast(t('saved'));
+  }catch(e){ toast(errMsg(e)); }
+  render();
+}
+async function exportIdentity(){
+  if(!ID || !confirm(t('idExportWarn'))) return;
+  await saveJsonFile(`kstep-identity-${dstr()}.json`, JSON.stringify({ app:'kstep-identity', v:1, playerId:ID.playerId, token:ID.token, name:ID.name || '', avatar:ID.avatar || '', hideRank:!!ID.hideRank }, null, 2));
+}
+function importIdentity(file){
+  const r = new FileReader();
+  r.onload = () => {
+    try{
+      const j = JSON.parse(r.result);
+      if(!j || j.app !== 'kstep-identity' || !/^p_[A-Za-z0-9]{16,32}$/.test(j.playerId || '') || !/^[A-Za-z0-9]{32,64}$/.test(j.token || '')) throw new Error('bad');
+      if(!confirm(t('idImportConfirm'))) return;
+      ID = { playerId:j.playerId, token:j.token, name:String(j.name || ''), avatar:String(j.avatar || ''), hideRank:!!j.hideRank, registered:true };
+      saveIdentity(); localStorage.removeItem(PENDING_KEY); localStorage.removeItem(SEL_KEY);
+      FCACHE = {}; F.data = null; toast(t('idImported')); go('friends');
+    }catch(e){ toast(t('idBad')); }
+  };
+  r.readAsText(file);
+}
+function forgetIdentity(){
+  if(!confirm(t('idForgetConfirm'))) return;
+  ID = null; saveIdentity(); localStorage.removeItem(PENDING_KEY); localStorage.removeItem(SEL_KEY);
+  FCACHE = {}; F.data = null; render();
+}
+
+/* ---- Views ---- */
+function relTime(ms){
+  ms = Math.max(0, ms || 0);
+  const s = Math.round(ms / 1000);
+  if(s < 60) return t('justNow');
+  let rtf;
+  try{ rtf = new Intl.RelativeTimeFormat(S.settings.lang === 'th' ? 'th' : 'en', { numeric:'auto' }); }catch(e){ return Math.round(s / 60) + ' min'; }
+  const m = Math.round(s / 60); if(m < 60) return rtf.format(-m, 'minute');
+  const h = Math.round(m / 60); if(h < 24) return rtf.format(-h, 'hour');
+  return rtf.format(-Math.round(h / 24), 'day');
+}
+function durText(ms){
+  const h = Math.max(0, Math.floor(ms / 3600000)), d = Math.floor(h / 24);
+  return d ? t('dShort', d) + ' ' + t('hShort', h % 24) : t('hShort', Math.max(1, h));
+}
+function offlineCard(){
+  return `<div class="card"><p>📴 ${t('fOffline')}</p><button class="btn pri" onclick="go('practice')">${t('practiceNow')}</button>
+    <div class="space"></div><button class="btn" onclick="friendsEnter(true)">${t('retry')}</button></div>`;
+}
+function vProfileForm(){
+  const cur = ID || {}, jc = localStorage.getItem(JOIN_KEY);
+  return `<div class="card"><h3>${F.editing ? t('profileEdit') : t('profileTitle')}</h3>
+    ${F.editing ? '' : `<p class="muted">${t('fIntro')}</p>`}<p class="muted">${t('profileHelp')}</p>
+    <label for="fName"><b>${t('nickname')}</b></label><div class="space"></div>
+    <input type="text" id="fName" maxlength="${CONFIG.social.nameMax}" value="${esc(cur.name || '')}" autocomplete="nickname" enterkeyhint="done">
+    <h3 style="margin-top:14px">${t('pickAvatar')}</h3>
+    <div class="avgrid" role="radiogroup" aria-label="${t('pickAvatar')}">${CONFIG.social.avatars.map(a => `<label class="avopt"><input type="radio" name="av" value="${a}" ${cur.avatar === a ? 'checked' : ''}><span>${a}</span></label>`).join('')}</div>
+    ${jc && !F.editing ? `<p class="muted">${t('joinAfterReg', esc(jc))}</p>` : ''}
+    <div class="space"></div><button class="btn pri" onclick="doRegister()" ${F.busy ? 'disabled' : ''}>${F.busy ? '⏳' : F.editing ? t('saveProfile') : t('startF')}</button>
+    ${F.editing ? `<div class="space"></div><button class="btn ghost" onclick="F.editing=false;render()">${t('cancel')}</button>` : ''}</div>`;
+}
+function squadForms(){
+  return `<div class="card"><h3>${t('createSquad')}</h3>
+    <input type="text" id="sqName" maxlength="20" placeholder="${t('squadName')}" autocomplete="off"><div class="space"></div>
+    <button class="btn pri" onclick="createSquad()" ${F.busy ? 'disabled' : ''}>➕ ${t('create')}</button></div>
+    <div class="card"><h3>${t('joinSquad')}</h3>
+    <input type="text" id="joinCode" class="codein" maxlength="5" placeholder="${t('codePh')}" autocapitalize="characters" autocomplete="off" spellcheck="false"><div class="space"></div>
+    <button class="btn" onclick="joinSquad()" ${F.busy ? 'disabled' : ''}>🔑 ${t('join')}</button></div>`;
+}
+function memberRow(m, d, ranked){
+  const me = m.id === d.profile.playerId, masked = m.hidden && !me;
+  const medal = !ranked ? '' : m.rank === 1 ? '🥇' : m.rank === 2 ? '🥈' : m.rank === 3 ? '🥉' : '#' + m.rank;
+  const acc = m.answered ? Math.round(m.correct / m.answered * 100) : null;
+  const seen = m.lastSeen ? t('lastSeen', relTime(d.serverNow - m.lastSeen)) : t('never');
+  const parts = !masked && m.byPart ? CONFIG.parts.map(p => { const x = m.byPart[p.id]; return x && x[0] ? `${p.icon}${x[0]}` : ''; }).filter(Boolean).join(' ') : '';
+  const line1 = masked ? (m.active ? t('activeWeek') : t('notYetWeek')) : t('answeredW', m.answered) + (acc !== null ? ' · ' + t('accW', acc) : '');
+  return `<div class="lb ${me ? 'me' : ''}">
+    <span class="rk">${medal}</span><span class="av" aria-hidden="true">${esc(m.avatar)}</span>
+    <div class="lbm"><div class="ell"><b>${esc(m.name)}</b>${me ? ` <span class="muted">(${t('you')})</span>` : ''}</div>
+      <div class="muted">${line1} · 🔥${m.streak}</div>
+      <div class="muted ell">${parts ? parts + ' · ' : ''}${esc(seen)}</div></div>
+    ${masked ? '' : `<div class="pts"><b>${m.points}</b><span class="muted">${t('pts')}</span></div>`}
+    ${me ? '' : `<button class="iconbtn" data-id="${esc(m.id)}" onclick="openCheer(this.dataset.id)" aria-label="${t('cheer')} ${esc(m.name)}">📣</button>`}
+  </div>`;
+}
+function myBreakdown(d){
+  const w = d.myWeek; if(!w || !w.answered) return '';
+  const parts = CONFIG.parts.filter(p => w.byPart[p.id]).map(p => { const x = w.byPart[p.id]; return hbar(p.icon + ' ' + pName(p), x[1] / x[0], x[1] + '/' + x[0]); }).join('');
+  const topics = Object.entries(w.byTopic).sort((a, b) => b[1][0] - a[1][0]).slice(0, 8).map(([k, x]) => hbar(k, x[1] / x[0], x[1] + '/' + x[0])).join('');
+  return `<details class="card"><summary>📊 ${t('myBreakdown')}</summary>
+    <p class="muted">${w.points} ${t('pts')} · ${t('answeredW', w.answered)} · ${t('accW', Math.round(w.correct / w.answered * 100))}</p>
+    <h3>${t('byPartW')}</h3>${parts}<h3 style="margin-top:12px">${t('byTopicW')}</h3>${topics}</details>`;
+}
+function rulesCard(d){
+  const r = d.rules;
+  return `<details class="card"><summary>📜 ${t('rulesTitle')}</summary><ul style="padding-left:1.2em;margin:8px 0">
+    <li>${t('rule1', r.pointsPerCorrect)}</li><li>${t('rule2', r.streakBonusPerDay, r.streakBonusMax)}</li>
+    <li>${t('rule3', r.dailyCap)}</li><li>${t('rule4')}</li><li>${t('rule5')}</li></ul></details>`;
+}
+function cheerSheet(d){
+  const s = d.squad, m = [...s.members, ...s.hidden].find(x => x.id === F.cheerTo);
+  if(!m) return '';
+  const left = Math.max(0, d.rules.cheerPerTarget - ((s.cheersSentToday || {})[m.id] || 0));
+  return `<div class="sheet" onclick="if(event.target===this)closeCheer()"><div class="panel" role="dialog" aria-modal="true">
+    <h2 style="margin-top:0">${t('cheerTo', esc(m.avatar + ' ' + m.name))}</h2><p class="muted">${t('cheerLeft', left)}</p>
+    <div class="cheers">${CONFIG.social.cheers.map((c, i) => `<button class="btn" onclick="sendCheer(${i})" ${left && !F.busy ? '' : 'disabled'}><span style="font-size:1.4rem" aria-hidden="true">${c.e}</span> ${esc(c[S.settings.lang] || c.en)}</button>`).join('')}</div>
+    <div class="space"></div><button class="btn ghost" onclick="closeCheer()">${t('close')}</button></div></div>`;
+}
+function squadSection(d){
+  const s = d.squad, meId = d.profile.playerId;
+  let h = `<div class="card"><h2 style="margin:0" class="ell">${esc(s.name)}</h2>
+    <div class="muted">${t('membersN', s.count, d.rules.maxMembers)} · ${t('resetsIn', durText(d.weekEndsAt - d.serverNow))}</div>
+    <div class="muted" style="margin-top:8px">${t('squadCode')}</div><div class="codebox">${esc(s.code)}</div>
+    <button class="btn pri" onclick="shareSquad('${esc(s.code)}')">📨 ${t('share')}</button></div>`;
+  h += `<div class="card"><h3>🏆 ${t('weekBoard')}</h3>${s.members.length ? s.members.map(m => memberRow(m, d, true)).join('') : '<p class="muted">—</p>'}</div>`;
+  if(s.hidden.length) h += `<div class="card"><h3>🤝 ${t('hiddenSection')}</h3>${s.hidden.map(m => memberRow(m, d, false)).join('')}${s.hidden.some(m => m.id === meId) ? `<p class="muted">${t('myHiddenNote')}</p>` : ''}</div>`;
+  h += `<div class="card"><h3>📣 ${t('cheersIn')}</h3>${s.cheersIn.length ? s.cheersIn.map(c => {
+    const x = CONFIG.social.cheers[c.cheer] || CONFIG.social.cheers[0];
+    return `<div class="task"><span>${esc(c.avatar)} <b>${esc(c.from)}</b>: ${x.e} ${esc(x[S.settings.lang] || x.en)}<br><span class="muted">${esc(relTime(d.serverNow - c.ts))}</span></span></div>`;
+  }).join('') : `<p class="muted">${t('noCheers')}</p>`}</div>`;
+  h += myBreakdown(d);
+  return h;
+}
+function vFriends(){
+  let h = `<h1>👥 ${t('fTitle')}</h1>`;
+  if(!CONFIG.apiUrl) return h + `<div class="card"><p>${t('fNoApi')}</p></div>`;
+  const online = navigator.onLine;
+  if(!ID || !ID.registered || F.editing) return h + (online ? vProfileForm() : offlineCard());
+  const d = F.data;
+  if(!d){
+    if(!online) return h + offlineCard();
+    if(F.err) return h + `<div class="card"><p class="bad-t">${esc(errMsg({ code:F.err }))}</p><button class="btn pri" onclick="friendsEnter(true)">${t('retry')}</button></div>`;
+    return h + `<div class="card">⏳ ${t('loadingF')}</div>`;
+  }
+  const p = d.profile, td = d.today, pn = getPending().length;
+  h += `<div class="card"><div class="pchip"><span class="avbig" aria-hidden="true">${esc(p.avatar)}</span>
+    <div style="flex:1;min-width:0"><div class="ell"><b>${esc(p.name)}</b></div><div class="muted">🔥 ${p.streak} · ${t('todayPts', td.points, td.cap)}</div></div>
+    <button class="iconbtn" style="flex:none" onclick="F.editing=true;render()" aria-label="${t('profileEdit')}">✏️</button>
+    <button class="iconbtn" style="flex:none" onclick="friendsEnter(true)" aria-label="${t('refresh')}" ${F.loading || !online ? 'disabled' : ''}>${F.loading ? '⏳' : '↻'}</button></div>
+    <div class="prog"><i style="width:${Math.min(100, td.points / td.cap * 100)}%"></i></div>
+    ${td.points >= td.cap ? `<p class="muted">${t('capReached')}</p>` : ''}
+    <p class="muted" style="margin-bottom:0">${online ? t('updatedAgo', relTime(Date.now() - F.at)) : '📴 ' + t('err_OFFLINE')}</p></div>`;
+  if(F.err) h += `<p class="bad-t">${esc(errMsg({ code:F.err }))}</p>`;
+  if(pn) h += `<div class="card row" style="align-items:center"><span style="flex:2">⏳ ${t('pendingN', pn)}</span><button class="btn" onclick="syncNowBtn()" ${online && !F.busy ? '' : 'disabled'}>${t('syncNow')}</button></div>`;
+  if(d.squads.length > 1) h += `<div class="seg" style="margin-top:12px">${d.squads.map(s => `<button class="${d.squad && d.squad.code === s.code ? 'on' : ''}" onclick="loadSquad('${esc(s.code)}')">${esc(s.name)}</button>`).join('')}</div>`;
+  if(!d.squad) return h + `<div class="card"><p>${t('noSquad')}</p><p class="muted">${t('fIntro')}</p></div>` + squadForms() + rulesCard(d);
+  h += squadSection(d);
+  if(d.squads.length < d.rules.maxSquads) h += `<details class="card"><summary>➕ ${t('addSquad')}</summary>${squadForms()}</details>`;
+  h += rulesCard(d);
+  h += `<button class="btn ghost" style="color:var(--bad);border-color:var(--bad)" onclick="leaveSquad('${esc(d.squad.code)}')" ${F.busy ? 'disabled' : ''}>🚪 ${t('leave')}</button>`;
+  if(F.cheerTo) h += cheerSheet(d);
+  return h;
+}
+function socialSettings(){
+  if(!CONFIG.apiUrl) return '';
+  const reg = !!(ID && ID.registered);
+  return `<div class="card"><h3>👥 ${t('social')}</h3>
+    ${reg ? `<p>${t('playerAs')}: <b>${esc(ID.avatar || '')} ${esc(ID.name || '')}</b></p>
+    <label class="switch"><input type="checkbox" ${ID.hideRank ? 'checked' : ''} onchange="toggleHideRank(this.checked)"><span><b>${t('hideRank')}</b><br><span class="muted">${t('hideRankD')}</span></span></label>`
+    : `<p class="muted">${t('needProfile')}</p>`}
+    <div class="stack" style="margin-top:10px">
+      ${ID ? `<button class="btn" onclick="exportIdentity()">🔑 ${t('idExport')}</button>` : ''}
+      <button class="btn" onclick="document.getElementById('idFile').click()">📥 ${t('idImport')}</button>
+      ${ID ? `<button class="btn" style="color:var(--bad);border-color:var(--bad)" onclick="forgetIdentity()">${t('idForget')}</button>` : ''}
+    </div>
+    <input type="file" id="idFile" accept="application/json,.json" hidden onchange="if(this.files[0])importIdentity(this.files[0]);this.value=''"></div>`;
+}
+
+/* =========================================================
+   13) INIT
+   ========================================================= */
+(async function init(){
+  applyTheme();
+  if(window.matchMedia){ const mq = matchMedia('(prefers-color-scheme: dark)'); if(mq.addEventListener) mq.addEventListener('change', applyTheme); }
+  // Invite link: ?squad=XXXXX → remember, clean URL, open Friends
+  const jq = new URLSearchParams(location.search).get('squad');
+  if(jq !== null){
+    const c = jq.toUpperCase().replace(/[^A-Z0-9]/g, '');
+    if(CODE_RE.test(c)){ localStorage.setItem(JOIN_KEY, c); view = 'friends'; }
+    history.replaceState(null, '', location.pathname);
+  }
+  render();
+  await loadBank();
+  syncCards();
+  if(view === 'friends') go('friends'); else render();
+  if('speechSynthesis' in window){ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices(); }
+  // Event-driven only (no polling): send queued answers when the phone comes back online
+  window.addEventListener('online', () => { flushPending(true); if(view === 'friends') render(); });
+  window.addEventListener('offline', () => { if(view === 'friends') render(); });
+  if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+})();
+</script>
+</body>
+</html>
