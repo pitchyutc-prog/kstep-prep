@@ -1,0 +1,291 @@
+{
+  "version": 1,
+  "questions": [
+    {
+      "id": "L01", "part": 1, "topic": "Question–response: Where",
+      "script": "Where should I leave these printed reports?",
+      "question": "Listen to the question. Choose the best response.",
+      "choices": ["On the shelf next to the copier.", "Yes, I printed them yesterday.", "About twenty pages.", "Because the printer was busy."],
+      "answer": 0,
+      "explanation_th": "คำถามขึ้นต้นด้วย Where ถามสถานที่ ตัวเลือก A บอกตำแหน่ง (ชั้นวางข้างเครื่องถ่ายเอกสาร) จึงถูก ส่วน B ขึ้นต้นด้วย Yes ซึ่งใช้ตอบคำถาม Yes/No เท่านั้น",
+      "explanation_en": "A Where-question asks for a place. Only A gives a location. B starts with 'Yes', which only fits yes/no questions."
+    },
+    {
+      "id": "L02", "part": 1, "topic": "Question–response: When",
+      "script": "When does the library close on Saturdays?",
+      "question": "Listen to the question. Choose the best response.",
+      "choices": ["It's on the third floor.", "At five in the afternoon.", "I borrowed two books.", "Every weekday."],
+      "answer": 1,
+      "explanation_th": "When ถามเวลา คำตอบต้องเป็นเวลา คือ At five in the afternoon ส่วน D บอกความถี่ ไม่ได้บอกเวลาปิด",
+      "explanation_en": "When asks for a time, so 'At five in the afternoon' is correct. D describes frequency, not a closing time."
+    },
+    {
+      "id": "L03", "part": 1, "topic": "Question–response: Choice",
+      "script": "Would you like me to send the file now or after lunch?",
+      "question": "Listen to the question. Choose the best response.",
+      "choices": ["After lunch is fine, thanks.", "Yes, I would.", "It was a large file.", "The lunch was delicious."],
+      "answer": 0,
+      "explanation_th": "คำถามแบบให้เลือก (A or B) ต้องเลือกอย่างใดอย่างหนึ่ง จึงตอบ After lunch is fine ส่วน Yes, I would เป็นกับดัก และ D ใช้คำว่า lunch ซ้ำเพื่อหลอก",
+      "explanation_en": "An 'A or B' question needs one of the options. 'Yes, I would' does not choose, and D only repeats the word 'lunch' as a trap."
+    },
+    {
+      "id": "L04", "part": 1, "topic": "Conversation: Workplace",
+      "script": "W: Hi Daniel, the projector in Meeting Room B isn't turning on.\nM: Did you check the power switch on the wall?\nW: Yes, I did. It still doesn't work.\nM: Okay, I'll call the IT department and ask them to bring a spare one.",
+      "question": "What will the man probably do next?",
+      "choices": ["Fix the projector himself", "Contact the IT department", "Move the meeting to Room A", "Turn on the wall switch"],
+      "answer": 1,
+      "explanation_th": "ผู้ชายพูดว่า I'll call the IT department แปลว่าจะติดต่อฝ่ายไอที ส่วนการเปิดสวิตช์ (D) ผู้หญิงทำไปแล้ว",
+      "explanation_en": "The man says, 'I'll call the IT department.' The woman already checked the switch, so D is wrong."
+    },
+    {
+      "id": "L05", "part": 1, "topic": "Conversation: Campus",
+      "script": "M: Excuse me, I'd like to change my lab section from Tuesday to Thursday.\nW: Sure. Thursday's section has only two seats left, so you need to submit the form today.\nM: Great. Do I need my advisor's signature?\nW: No, just your student ID number.",
+      "question": "What does the man need to provide?",
+      "choices": ["His advisor's signature", "A medical certificate", "His student ID number", "A payment receipt"],
+      "answer": 2,
+      "explanation_th": "ผู้หญิงตอบว่า No, just your student ID number คือไม่ต้องใช้ลายเซ็นอาจารย์ ใช้แค่รหัสนักศึกษา",
+      "explanation_en": "The woman says no signature is needed, 'just your student ID number'."
+    },
+    {
+      "id": "L06", "part": 1, "topic": "Conversation: Travel",
+      "script": "W: Good morning. I booked a room for two nights under the name Lee.\nM: Yes, Ms. Lee. Unfortunately, your room won't be ready until 2 p.m.\nW: That's fine. Can I leave my luggage here?\nM: Of course. And breakfast is served on the second floor until ten.",
+      "question": "Where most likely are the speakers?",
+      "choices": ["At an airport", "At a hotel front desk", "At a restaurant", "At a train station"],
+      "answer": 1,
+      "explanation_th": "คำว่า booked a room, two nights, luggage และ breakfast บ่งบอกว่าอยู่ที่เคาน์เตอร์ต้อนรับของโรงแรม",
+      "explanation_en": "Key words such as 'booked a room', 'two nights', 'luggage' and 'breakfast' point to a hotel front desk."
+    },
+    {
+      "id": "L07", "part": 1, "topic": "Talk: Announcement",
+      "script": "Attention, passengers. The 3:45 train to Chiang Mai has been delayed by approximately forty minutes due to maintenance work on the track. Passengers may show their tickets at the café on platform two for a free drink. We apologize for the inconvenience.",
+      "question": "Why is the train delayed?",
+      "choices": ["Bad weather", "A staff shortage", "Track maintenance", "A ticket system error"],
+      "answer": 2,
+      "explanation_th": "ประกาศบอกว่า due to maintenance work on the track (เพราะการซ่อมบำรุงราง) โดย due to แปลว่า เนื่องจาก",
+      "explanation_en": "The announcement says the delay is 'due to maintenance work on the track'."
+    },
+    {
+      "id": "L08", "part": 1, "topic": "Talk: Voicemail",
+      "script": "Hi, this is Mai from Green Leaf Dental Clinic calling for Mr. Somchai. I'm calling to remind you about your appointment tomorrow at 9:30 a.m. If you need to reschedule, please call us back before 5 p.m. today. Thank you.",
+      "question": "What is the purpose of the message?",
+      "choices": ["To cancel an appointment", "To remind a patient of an appointment", "To advertise a new clinic", "To ask for a payment"],
+      "answer": 1,
+      "explanation_th": "I'm calling to remind you about your appointment แปลว่าโทรมาเตือนนัด ประโยคที่บอกจุดประสงค์มักอยู่ช่วงต้นของข้อความ",
+      "explanation_en": "'I'm calling to remind you about your appointment' states the purpose. Purpose is usually given early in a message."
+    },
+    {
+      "id": "L09", "part": 1, "topic": "Talk: Workplace briefing",
+      "script": "Good morning, everyone. Starting next Monday, our office will switch to a new online system for leave requests. Paper forms will no longer be accepted. Training sessions will be held this Friday in the main conference room, so please sign up with Human Resources by Wednesday.",
+      "question": "What should listeners do by Wednesday?",
+      "choices": ["Submit a paper leave form", "Sign up for a training session", "Attend a meeting in the conference room", "Install new software"],
+      "answer": 1,
+      "explanation_th": "please sign up with Human Resources by Wednesday คือให้ลงชื่อเข้าอบรมภายในวันพุธ ส่วนการอบรมจริงจัดวันศุกร์ (ระวังสับสนวัน)",
+      "explanation_en": "Listeners must 'sign up with Human Resources by Wednesday'. The training itself is on Friday, a common date trap."
+    },
+    {
+      "id": "L10", "part": 1, "topic": "Conversation: Numbers & prices",
+      "script": "M: How much are these wireless earphones?\nW: They're normally 1,200 baht, but they're 25 percent off this week.\nM: So that's 900 baht?\nW: That's right. And you get a free carrying case, too.",
+      "question": "How much will the man pay for the earphones?",
+      "choices": ["750 baht", "900 baht", "1,200 baht", "1,500 baht"],
+      "answer": 1,
+      "explanation_th": "ราคาปกติ 1,200 บาท ลด 25% เท่ากับลด 300 บาท เหลือ 900 บาท และผู้หญิงยืนยันว่า That's right",
+      "explanation_en": "25% off 1,200 baht is 300 baht, so the price is 900 baht, which the woman confirms."
+    },
+    {
+      "id": "R01", "part": 2, "topic": "Reading: Notice",
+      "passage": "NOTICE TO ALL RESIDENTS\nThe swimming pool will be closed from June 3 to June 7 for cleaning and repairs. During this period, residents may use the fitness room free of charge. The pool will reopen on June 8 at 6:00 a.m. Thank you for your patience.\n— Building Management",
+      "question": "What are residents offered while the pool is closed?",
+      "choices": ["A discount on rent", "Free use of the fitness room", "Swimming lessons", "An extra parking space"],
+      "answer": 1,
+      "explanation_th": "residents may use the fitness room free of charge แปลว่าใช้ห้องฟิตเนสได้ฟรี (free of charge = ไม่เสียค่าใช้จ่าย)",
+      "explanation_en": "The notice says residents 'may use the fitness room free of charge'."
+    },
+    {
+      "id": "R02", "part": 2, "topic": "Reading: Email",
+      "passage": "From: Napat Chaiyo\nTo: All Sales Staff\nSubject: Monthly meeting\n\nHi team,\nOur monthly sales meeting will move from Thursday to Friday at 10:00 a.m. because the conference room is being used for job interviews on Thursday. Please bring your updated customer lists. Lunch will be provided after the meeting.\nNapat",
+      "question": "Why has the meeting been moved?",
+      "choices": ["The manager is on vacation.", "The room is needed for interviews.", "The customer lists are not ready.", "Lunch cannot be delivered on Thursday."],
+      "answer": 1,
+      "explanation_th": "because the conference room is being used for job interviews แปลว่าห้องประชุมถูกใช้สัมภาษณ์งาน คำว่า because บอกเหตุผลโดยตรง",
+      "explanation_en": "The word 'because' introduces the reason: the room is being used for job interviews."
+    },
+    {
+      "id": "R03", "part": 2, "topic": "Reading: Vocabulary in context",
+      "passage": "SUMMER SPECIAL at BrightByte Computer School\nLearn basic coding in just six weeks! Classes meet every Saturday morning. Students who register before May 15 will receive a 20% discount. Laptops are provided, so no equipment is necessary. Seats are limited, so sign up early!",
+      "question": "The word \"limited\" in the advertisement is closest in meaning to",
+      "choices": ["free", "restricted in number", "comfortable", "reserved for teachers"],
+      "answer": 1,
+      "explanation_th": "Seats are limited คือที่นั่งมีจำนวนจำกัด ความหมายใกล้เคียงที่สุดคือ restricted in number",
+      "explanation_en": "'Seats are limited' means there are only a certain number of seats, so it means 'restricted in number'."
+    },
+    {
+      "id": "R04", "part": 2, "topic": "Reading: Schedule",
+      "passage": "CITY SHUTTLE BUS: Weekday Timetable\nCentral Station → University Gate\nDepartures: 7:00 | 7:30 | 8:15 | 9:00\nTravel time: about 25 minutes\nNote: No service on public holidays. Students with a valid ID pay half fare (10 baht).",
+      "question": "If a student takes the 8:15 bus, about what time will the student arrive at the University Gate?",
+      "choices": ["8:25", "8:40", "8:55", "9:15"],
+      "answer": 1,
+      "explanation_th": "รถออก 8:15 ใช้เวลาเดินทางประมาณ 25 นาที จึงถึงราว 8:40",
+      "explanation_en": "8:15 plus about 25 minutes of travel time is 8:40."
+    },
+    {
+      "id": "R05", "part": 2, "topic": "Reading: Main idea",
+      "passage": "Many companies in Bangkok are now offering flexible working hours. Employees can start work any time between 7 and 10 a.m., as long as they complete eight hours a day. Managers report that staff are less stressed by traffic and more productive. However, some teams say it is harder to schedule meetings when everyone arrives at different times.",
+      "question": "What is the passage mainly about?",
+      "choices": ["Traffic problems in Bangkok", "The benefits and challenges of flexible hours", "How to schedule better meetings", "Why employees should work longer hours"],
+      "answer": 1,
+      "explanation_th": "บทความพูดถึงทั้งข้อดี (เครียดน้อยลง ทำงานได้มากขึ้น) และข้อเสีย (นัดประชุมยาก) ของเวลางานยืดหยุ่น ตัวเลือก A และ C เป็นแค่รายละเอียดย่อย",
+      "explanation_en": "The passage covers both the advantages (less stress, more productive) and a challenge (meetings) of flexible hours. A and C are only details."
+    },
+    {
+      "id": "R06", "part": 2, "topic": "Reading: NOT mentioned",
+      "passage": "WANTED: Part-time Café Assistant\nThe Corner Bean Café is looking for a friendly assistant to work weekends. Duties include taking orders, preparing simple drinks, and keeping the seating area clean. Applicants must be able to communicate in basic English. Experience is preferred but not required. Send your résumé by March 20.",
+      "question": "Which is NOT mentioned as a duty of the job?",
+      "choices": ["Taking orders", "Preparing drinks", "Managing the café's finances", "Cleaning the seating area"],
+      "answer": 2,
+      "explanation_th": "หน้าที่ที่ระบุคือรับออร์เดอร์ ทำเครื่องดื่ม และทำความสะอาดที่นั่ง ไม่มีเรื่องดูแลการเงิน ข้อคำถาม NOT ต้องหาตัวเลือกที่ไม่มีในบทความ",
+      "explanation_en": "The listed duties are taking orders, preparing drinks and cleaning. Managing finances is not mentioned."
+    },
+    {
+      "id": "R07", "part": 2, "topic": "Reading: Inference",
+      "passage": "MEMO\nTo: Laboratory Users\nRe: Safety Glasses\n\nAn inspection last week found that several students were working in Lab 204 without safety glasses. From now on, anyone who enters the lab without proper eye protection will be asked to leave. Spare glasses are available at the front office for students who forget theirs.",
+      "question": "What can be inferred from the memo?",
+      "choices": ["The lab will close permanently.", "Some students did not follow safety rules.", "Safety glasses are sold at the office.", "The inspection found broken equipment."],
+      "answer": 1,
+      "explanation_th": "การตรวจพบนักศึกษาหลายคนไม่สวมแว่นนิรภัย จึงอนุมานได้ว่ามีคนไม่ทำตามกฎ ส่วนแว่น 'available' แปลว่ามีให้ ไม่ได้บอกว่าขาย (C เป็นกับดัก)",
+      "explanation_en": "Students worked without safety glasses, so some did not follow the rules. Glasses are 'available', not 'sold', which makes C a trap."
+    },
+    {
+      "id": "R08", "part": 2, "topic": "Reading: Writer's intention",
+      "passage": "Ploy (9:12): Hi Ken, are you still coming to the study group at 1?\nKen (9:15): Yes, but I might be 15 minutes late. My bus is stuck in traffic.\nPloy (9:16): No problem. We'll start with the reading section first.\nKen (9:16): Thanks! I'll bring the practice tests.",
+      "question": "At 9:16, what does Ploy mean when she writes \"No problem\"?",
+      "choices": ["She is not worried about Ken being late.", "She has finished the practice tests.", "She cannot attend the study group.", "The bus is not in traffic."],
+      "answer": 0,
+      "explanation_th": "Ploy ตอบ No problem หลังจาก Ken บอกว่าอาจมาสาย จึงหมายถึง ไม่เป็นไร ไม่กังวลที่ Ken มาสาย",
+      "explanation_en": "Ploy replies 'No problem' right after Ken says he may be late, so she is fine with him being late."
+    },
+    {
+      "id": "R09", "part": 2, "topic": "Reading: Review / opinion",
+      "passage": "Product review: 3/5 stars\nI bought the AquaPure water bottle last month. It keeps drinks cold for nearly 24 hours, which is excellent. However, the lid is difficult to open with one hand, and the paint started to peel after two weeks. For the price, I expected better quality.\n— Jirapat",
+      "question": "What does the reviewer like about the product?",
+      "choices": ["Its low price", "Its easy-to-open lid", "How long it keeps drinks cold", "Its long-lasting paint"],
+      "answer": 2,
+      "explanation_th": "ผู้รีวิวชมว่าเก็บความเย็นได้เกือบ 24 ชั่วโมง (excellent) ส่วนฝา สี และราคาเป็นข้อติ",
+      "explanation_en": "The reviewer calls keeping drinks cold for nearly 24 hours 'excellent'. The lid, paint and price are complaints."
+    },
+    {
+      "id": "R10", "part": 2, "topic": "Reading: Instructions",
+      "passage": "HOW TO RESET YOUR STUDENT PORTAL PASSWORD\n1. Go to the login page and click \"Forgot password\".\n2. Enter your student ID and registered e-mail address.\n3. Check your e-mail for a six-digit code. The code expires in 10 minutes.\n4. Enter the code and create a new password with at least 8 characters.",
+      "question": "What should a user do after receiving the code?",
+      "choices": ["Call the IT help desk", "Enter it and create a new password", "Wait 10 minutes before logging in", "Send it to an advisor"],
+      "answer": 1,
+      "explanation_th": "ขั้นที่ 4 บอกว่า Enter the code and create a new password ส่วน 10 minutes คืออายุของรหัส ไม่ใช่เวลาที่ต้องรอ",
+      "explanation_en": "Step 4: enter the code and create a new password. '10 minutes' is how long the code is valid, not a waiting time."
+    },
+    {
+      "id": "S01", "part": 3, "topic": "Grammar: Subject–verb agreement",
+      "question": "Each of the applicants ___ required to submit two references.",
+      "choices": ["are", "is", "were", "have"],
+      "answer": 1,
+      "explanation_th": "Each of + นามพหูพจน์ ประธานจริงคือ Each ซึ่งเป็นเอกพจน์ จึงใช้ is",
+      "explanation_en": "The real subject is 'Each', which is singular, so the verb is 'is'."
+    },
+    {
+      "id": "S02", "part": 3, "topic": "Grammar: Present perfect",
+      "question": "Our team ___ on this project since January.",
+      "choices": ["works", "worked", "has been working", "will work"],
+      "answer": 2,
+      "explanation_th": "since January บอกว่าเริ่มในอดีตและยังทำอยู่ถึงปัจจุบัน จึงใช้ Present Perfect (Continuous) คือ has been working",
+      "explanation_en": "'Since January' shows an action that started in the past and continues now, so use the present perfect continuous."
+    },
+    {
+      "id": "S03", "part": 3, "topic": "Grammar: Conditionals",
+      "question": "If the shipment ___ late again, we will look for another supplier.",
+      "choices": ["arrives", "will arrive", "arrived", "would arrive"],
+      "answer": 0,
+      "explanation_th": "If แบบที่ 1 (เงื่อนไขที่เป็นไปได้): If + Present Simple, will + V1 ประธานเอกพจน์จึงใช้ arrives ห้ามใช้ will หลัง if",
+      "explanation_en": "First conditional: If + present simple, will + base verb. Do not use 'will' in the if-clause."
+    },
+    {
+      "id": "S04", "part": 3, "topic": "Grammar: Word form",
+      "question": "The new software makes data entry much more ___.",
+      "choices": ["efficiency", "efficient", "efficiently", "efficiencies"],
+      "answer": 1,
+      "explanation_th": "โครงสร้าง make + กรรม + คุณศัพท์ (ทำให้…เป็น…) และหลัง more ในที่นี้ต้องเป็นคุณศัพท์ efficient",
+      "explanation_en": "Pattern: make + object + adjective. 'More efficient' is the comparative adjective."
+    },
+    {
+      "id": "S05", "part": 3, "topic": "Grammar: Prepositions of time",
+      "question": "The report must be submitted ___ Friday at the latest.",
+      "choices": ["by", "until", "in", "since"],
+      "answer": 0,
+      "explanation_th": "by = ภายใน/ไม่เกิน (เส้นตาย) เข้ากับ at the latest ส่วน until ใช้กับการกระทำที่ต่อเนื่องจนถึงเวลานั้น",
+      "explanation_en": "'By' marks a deadline and matches 'at the latest'. 'Until' is for an action that continues up to a time."
+    },
+    {
+      "id": "S06", "part": 3, "topic": "Grammar: Passive voice",
+      "question": "All visitors ___ to wear an ID badge inside the factory.",
+      "choices": ["require", "are required", "requiring", "have required"],
+      "answer": 1,
+      "explanation_th": "ผู้มาเยือน 'ถูกกำหนดให้' สวมบัตร จึงใช้ Passive: be required to + V1",
+      "explanation_en": "Visitors receive the action, so use the passive: 'are required to' + base verb."
+    },
+    {
+      "id": "S07", "part": 3, "topic": "Grammar: Relative clauses",
+      "question": "The engineer ___ designed this bridge will give a talk tomorrow.",
+      "choices": ["which", "whom", "who", "whose"],
+      "answer": 2,
+      "explanation_th": "ขยายคน (The engineer) และทำหน้าที่เป็นประธานของ designed จึงใช้ who",
+      "explanation_en": "The relative pronoun refers to a person and is the subject of 'designed', so use 'who'."
+    },
+    {
+      "id": "S08", "part": 3, "topic": "Grammar: Conjunctions",
+      "question": "___ the weather was bad, the outdoor event was not cancelled.",
+      "choices": ["Because", "Although", "Despite", "So"],
+      "answer": 1,
+      "explanation_th": "สองส่วนขัดแย้งกัน (อากาศแย่ แต่ไม่ยกเลิก) จึงใช้ Although + ประโยค ส่วน Despite ต้องตามด้วยคำนามหรือ V-ing",
+      "explanation_en": "The ideas contrast, so use 'Although' + clause. 'Despite' must be followed by a noun or -ing form."
+    },
+    {
+      "id": "S09", "part": 3, "topic": "Vocabulary: Collocations",
+      "question": "Please ___ attention to the safety instructions before using the machine.",
+      "choices": ["make", "take", "pay", "give"],
+      "answer": 2,
+      "explanation_th": "สำนวนตายตัว pay attention to แปลว่า ให้ความสนใจ/ใส่ใจ",
+      "explanation_en": "'Pay attention to' is a fixed collocation."
+    },
+    {
+      "id": "S10", "part": 3, "topic": "Grammar: Gerunds & infinitives",
+      "question": "The manager suggested ___ the meeting to next week.",
+      "choices": ["postpone", "to postpone", "postponing", "postponed"],
+      "answer": 2,
+      "explanation_th": "suggest ตามด้วย V-ing (หรือ suggest that ...) จึงใช้ postponing ห้ามใช้ suggest to + V1",
+      "explanation_en": "'Suggest' is followed by a gerund (-ing) or a that-clause, not 'to' + verb."
+    }
+  ],
+  "vocab": [
+    { "word": "deadline", "pos": "n.", "meaning_th": "กำหนดส่ง, เส้นตาย", "meaning_en": "the latest time to finish something", "example": "The deadline for the report is Friday." },
+    { "word": "postpone", "pos": "v.", "meaning_th": "เลื่อนออกไป", "meaning_en": "to move an event to a later time", "example": "They postponed the meeting until Monday." },
+    { "word": "applicant", "pos": "n.", "meaning_th": "ผู้สมัคร", "meaning_en": "a person who applies for a job or place", "example": "Each applicant must send a résumé." },
+    { "word": "reimburse", "pos": "v.", "meaning_th": "จ่ายเงินคืน, ชดใช้ค่าใช้จ่าย", "meaning_en": "to pay back money someone has spent", "example": "The company will reimburse your travel costs." },
+    { "word": "itinerary", "pos": "n.", "meaning_th": "กำหนดการเดินทาง", "meaning_en": "a detailed travel plan", "example": "Please check the itinerary before the trip." },
+    { "word": "invoice", "pos": "n.", "meaning_th": "ใบแจ้งหนี้", "meaning_en": "a document asking for payment", "example": "We will send the invoice by e-mail." },
+    { "word": "maintenance", "pos": "n.", "meaning_th": "การบำรุงรักษา", "meaning_en": "work to keep something in good condition", "example": "The elevator is closed for maintenance." },
+    { "word": "colleague", "pos": "n.", "meaning_th": "เพื่อนร่วมงาน", "meaning_en": "a person you work with", "example": "I had lunch with a colleague." },
+    { "word": "available", "pos": "adj.", "meaning_th": "ว่าง, มีให้ใช้", "meaning_en": "free to use or able to be obtained", "example": "Is the meeting room available at 3 p.m.?" },
+    { "word": "requirement", "pos": "n.", "meaning_th": "ข้อกำหนด, คุณสมบัติที่ต้องมี", "meaning_en": "something that is needed or demanded", "example": "English skills are a requirement for this job." },
+    { "word": "attend", "pos": "v.", "meaning_th": "เข้าร่วม", "meaning_en": "to be present at an event", "example": "All staff must attend the training." },
+    { "word": "refund", "pos": "n.", "meaning_th": "เงินคืน", "meaning_en": "money returned to a customer", "example": "You can get a full refund within 7 days." },
+    { "word": "approximately", "pos": "adv.", "meaning_th": "ประมาณ", "meaning_en": "close to but not exactly", "example": "The trip takes approximately two hours." },
+    { "word": "efficient", "pos": "adj.", "meaning_th": "มีประสิทธิภาพ", "meaning_en": "working well without wasting time or energy", "example": "The new system is more efficient." },
+    { "word": "submit", "pos": "v.", "meaning_th": "ส่ง (งาน/เอกสาร)", "meaning_en": "to formally give a document", "example": "Submit your form by Friday." },
+    { "word": "inquiry", "pos": "n.", "meaning_th": "การสอบถาม", "meaning_en": "a question asking for information", "example": "Thank you for your inquiry about our courses." },
+    { "word": "renovate", "pos": "v.", "meaning_th": "ปรับปรุง (อาคาร)", "meaning_en": "to repair and improve a building", "example": "The library is being renovated." },
+    { "word": "expire", "pos": "v.", "meaning_th": "หมดอายุ", "meaning_en": "to stop being valid", "example": "My passport expires next year." },
+    { "word": "confirm", "pos": "v.", "meaning_th": "ยืนยัน", "meaning_en": "to say that something is definitely true or arranged", "example": "Please confirm your booking by e-mail." },
+    { "word": "departure", "pos": "n.", "meaning_th": "การออกเดินทาง", "meaning_en": "the act of leaving", "example": "The departure time is 8:15." },
+    { "word": "budget", "pos": "n.", "meaning_th": "งบประมาณ", "meaning_en": "the amount of money available to spend", "example": "The project is within budget." },
+    { "word": "promote", "pos": "v.", "meaning_th": "เลื่อนตำแหน่ง, ส่งเสริม", "meaning_en": "to give a higher position; to advertise", "example": "She was promoted to manager." },
+    { "word": "warranty", "pos": "n.", "meaning_th": "การรับประกันสินค้า", "meaning_en": "a written promise to repair a product", "example": "The laptop has a two-year warranty." },
+    { "word": "negotiate", "pos": "v.", "meaning_th": "ต่อรอง, เจรจา", "meaning_en": "to discuss to reach an agreement", "example": "We negotiated a lower price." }
+  ]
+}
