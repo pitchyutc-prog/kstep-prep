@@ -1,0 +1,15 @@
+{
+  "name": "K-StEP English Prep",
+  "short_name": "K-StEP Prep",
+  "description": "Mobile practice app for a K-StEP style English proficiency exam",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f5f7fa",
+  "theme_color": "#1f5fbf",
+  "lang": "th",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
