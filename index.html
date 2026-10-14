@@ -13,79 +13,79 @@
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
-:root{--bg:#f5f7fa;--card:#fff;--text:#111827;--muted:#4b5563;--pri:#1f5fbf;--pri-ink:#fff;--soft:#e8f0fc;--ok:#137a45;--ok-bg:#e3f5ea;--bad:#b42318;--bad-bg:#fdeceb;--warn:#9a5b00;--line:#d9dee5;--r:14px;--shadow:0 1px 3px rgba(0,0,0,.06)}
-[data-theme="dark"]{--bg:#0e1217;--card:#171d25;--text:#e9eef4;--muted:#a7b1bd;--pri:#7fa8ff;--pri-ink:#0b1220;--soft:#1c2736;--ok:#5ad391;--ok-bg:#12291d;--bad:#ff8a80;--bad-bg:#2e1716;--warn:#f5c04d;--line:#2a333f;--shadow:none}
+:root{--bg:#f4f7fb;--card:#fff;--text:#111827;--muted:#4b5563;--pri:#2563eb;--pri-ink:#fff;--soft:#eff6ff;--ok:#16a34a;--ok-bg:#f0fdf4;--bad:#dc2626;--bad-bg:#fef2f2;--warn:#d97706;--line:#e2e8f0;--r:18px;--shadow:0 4px 12px rgba(37,99,235,0.06)}
+[data-theme="dark"]{--bg:#0b0f17;--card:#151c28;--text:#f1f5f9;--muted:#94a3b8;--pri:#3b82f6;--pri-ink:#0b0f17;--soft:#1e293b;--ok:#4ade80;--ok-bg:#052e16;--bad:#f87171;--bad-bg:#450a0a;--warn:#fbbf24;--line:#263348;--shadow:none}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 [hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--text);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Thai",Sarabun,sans-serif;overflow-x:hidden}
 #app{max-width:560px;margin:0 auto;padding:16px 16px calc(120px + env(safe-area-inset-bottom))}
-h1{font-size:1.5rem;margin:.2em 0 .4em;line-height:1.3}
-h2{font-size:1.2rem;margin:1.2em 0 .5em}
-h3{font-size:1.06rem;margin:0 0 .4em}
+h1{font-size:1.6rem;margin:.2em 0 .2em;line-height:1.3;font-weight:800}
+h2{font-size:1.2rem;margin:1.2em 0 .5em;font-weight:700}
+h3{font-size:1.06rem;margin:0 0 .4em;font-weight:700}
 p{margin:.4em 0}
 .muted{color:var(--muted)}
 .ell{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin:12px 0;box-shadow:var(--shadow)}
-.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:52px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-weight:600;cursor:pointer;text-align:center}
-.btn.pri{background:var(--pri);color:var(--pri-ink);border-color:var(--pri)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;margin:12px 0;box-shadow:var(--shadow)}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:52px;padding:10px 14px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-weight:600;cursor:pointer;text-align:center;transition:transform .1s}
+.btn.pri{background:var(--pri);color:var(--pri-ink);border-color:var(--pri);box-shadow:0 4px 12px rgba(37,99,235,0.2)}
 .btn.ghost{background:transparent}
 .btn.flagged{border:2px solid var(--warn);color:var(--warn)}
-.btn:disabled{opacity:.45;cursor:default}
-.btn:active,.mode:active,.choice:active{transform:scale(.985)}
+.btn:disabled{opacity:.45;cursor:default;box-shadow:none}
+.btn:active,.mode:active,.choice:active{transform:scale(.98)}
 .row{display:flex;gap:10px}
 .row>*{flex:1}
 .stack>*+*{margin-top:8px}
 .space{height:10px}
-.mode{display:flex;gap:14px;align-items:center;text-align:left;width:100%;padding:16px;border-radius:var(--r);border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;margin:10px 0;cursor:pointer;min-height:80px;box-shadow:var(--shadow)}
+.mode{display:flex;gap:14px;align-items:center;text-align:left;width:100%;padding:16px;border-radius:var(--r);border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;margin:10px 0;cursor:pointer;min-height:80px;box-shadow:var(--shadow);transition:transform .1s}
 .mode:disabled{opacity:.5;cursor:default}
-.mode .ic{font-size:1.6rem;width:48px;height:48px;border-radius:12px;background:var(--soft);display:grid;place-items:center;flex:none}
-.mode b{display:block;font-size:1.06rem}
-.mode .muted{display:block}
+.mode .ic{font-size:1.6rem;width:50px;height:50px;border-radius:14px;background:var(--soft);display:grid;place-items:center;flex:none}
+.mode b{display:block;font-size:1.08rem}
+.mode .muted{display:block;font-size:.92rem}
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;color:var(--text);font:inherit;text-align:left}
-.stat .v{font-size:1.45rem;font-weight:700}
-.nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom));z-index:10}
-.nav button{flex:1;min-width:0;background:none;border:0;color:var(--muted);font:inherit;font-size:16px;display:flex;flex-direction:column;align-items:center;padding:4px 2px;min-height:58px;border-radius:10px;cursor:pointer;white-space:nowrap}
-.nav .i{font-size:1.3rem;line-height:1.3}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px;color:var(--text);font:inherit;text-align:left;box-shadow:var(--shadow)}
+.stat .v{font-size:1.5rem;font-weight:800;color:var(--pri)}
+.nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom));z-index:10;box-shadow:0 -4px 20px rgba(0,0,0,0.04)}
+.nav button{flex:1;min-width:0;background:none;border:0;color:var(--muted);font:inherit;font-size:13px;display:flex;flex-direction:column;align-items:center;padding:4px 2px;min-height:58px;border-radius:12px;cursor:pointer;white-space:nowrap}
+.nav .i{font-size:1.4rem;line-height:1.2}
 .nav button.on{color:var(--pri);font-weight:700;background:var(--soft)}
-.bar{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);padding:10px 12px calc(10px + env(safe-area-inset-bottom));z-index:10}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);padding:10px 12px calc(10px + env(safe-area-inset-bottom));z-index:10;box-shadow:0 -4px 20px rgba(0,0,0,0.04)}
 .bar .in{max-width:560px;margin:0 auto;display:flex;gap:8px}
 .bar .btn{min-height:56px}
 .top{position:sticky;top:0;z-index:5;background:var(--bg);margin:-16px -16px 8px;padding:10px 16px}
-.iconbtn{min-width:52px;min-height:52px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-size:1.1rem;cursor:pointer}
+.iconbtn{min-width:52px;min-height:52px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-size:1.1rem;cursor:pointer}
 .iconbtn:disabled{opacity:.45}
 .prog{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:8px}
-.prog>i{display:block;height:100%;background:var(--pri);border-radius:99px;transition:width .2s}
+.prog>i{display:block;height:100%;background:var(--pri);border-radius:99px;transition:width .3s ease}
 .timer{font-variant-numeric:tabular-nums;font-weight:700}
 .timer.low{color:var(--bad)}
-.passage{white-space:pre-wrap;background:var(--soft);border-radius:12px;padding:14px;margin:8px 0;max-height:45vh;overflow:auto}
-.q{font-size:1.1rem;font-weight:600;margin:12px 0}
-.choice{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;padding:14px;margin:8px 0;min-height:58px;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--text);font:inherit;cursor:pointer}
-.choice .k{flex:none;width:30px;height:30px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-weight:700}
+.passage{white-space:pre-wrap;background:var(--soft);border-radius:14px;padding:16px;margin:8px 0;max-height:45vh;overflow:auto;border:1px solid var(--line)}
+.q{font-size:1.15rem;font-weight:700;margin:14px 0}
+.choice{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;padding:14px;margin:8px 0;min-height:58px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--text);font:inherit;cursor:pointer;transition:all .1s}
+.choice .k{flex:none;width:32px;height:32px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-weight:700;font-size:.95rem}
 .choice.sel{border-color:var(--pri);background:var(--soft)}
 .choice.sel .k{background:var(--pri);color:var(--pri-ink);border-color:var(--pri)}
 .choice.ok{border-color:var(--ok);background:var(--ok-bg)}
 .choice.bad{border-color:var(--bad);background:var(--bad-bg)}
-.fb{border-left:4px solid var(--pri);padding:10px 12px;background:var(--card);border-radius:8px;margin:10px 0}
+.fb{border-left:4px solid var(--pri);padding:12px 14px;background:var(--card);border-radius:12px;margin:12px 0;box-shadow:var(--shadow)}
 .fb.ok{border-color:var(--ok)}.fb.bad{border-color:var(--bad)}
-.ok-t{color:var(--ok)}.bad-t{color:var(--bad)}
+.ok-t{color:var(--ok);font-weight:700}.bad-t{color:var(--bad);font-weight:700}
 .audio{display:flex;gap:10px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(52px,1fr));gap:8px}
-.grid button{min-height:52px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-weight:600;position:relative}
+.grid button{min-height:52px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-weight:600;position:relative}
 .grid button.ans{background:var(--soft);border-color:var(--pri)}
 .grid button.cur{outline:3px solid var(--pri)}
 .grid button.flag{border:2px solid var(--warn)}
-.sheet{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:20;display:flex;align-items:flex-end}
-.sheet .panel{background:var(--bg);width:100%;max-width:560px;margin:0 auto;max-height:82vh;overflow:auto;border-radius:18px 18px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom))}
-.hbar{display:flex;align-items:center;gap:10px;margin:8px 0}
-.hbar .lbl{flex:0 0 42%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sheet{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:20;display:flex;align-items:flex-end}
+.sheet .panel{background:var(--card);width:100%;max-width:560px;margin:0 auto;max-height:82vh;overflow:auto;border-radius:24px 24px 0 0;padding:20px 16px calc(20px + env(safe-area-inset-bottom));box-shadow:0 -10px 30px rgba(0,0,0,0.1)}
+.hbar{display:flex;align-items:center;gap:10px;margin:10px 0}
+.hbar .lbl{flex:0 0 42%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
 .hbar .track{flex:1;height:12px;background:var(--line);border-radius:99px;overflow:hidden}
 .hbar .track i{display:block;height:100%;background:var(--pri)}
-.hbar .val{flex:none;min-width:64px;text-align:right;font-variant-numeric:tabular-nums}
-.linkrow{width:100%;background:none;border:0;color:inherit;font:inherit;padding:6px 0;text-align:left;min-height:52px;cursor:pointer}
+.hbar .val{flex:none;min-width:64px;text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.linkrow{width:100%;background:none;border:0;color:inherit;font:inherit;padding:8px 0;text-align:left;min-height:52px;cursor:pointer}
 .chart{width:100%;height:auto;display:block}
-.task{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.task{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
 .task:last-child{border-bottom:0}
 .task label{display:flex;gap:12px;align-items:center;flex:1;min-height:44px;cursor:pointer}
 .task input{width:26px;height:26px;accent-color:var(--pri);flex:none}
@@ -93,41 +93,46 @@ p{margin:.4em 0}
 .day.past{opacity:.6}
 .day.today{border:2px solid var(--pri)}
 .flash{min-height:260px;display:flex;flex-direction:column;justify-content:center;text-align:center;cursor:pointer}
-.flash .w{font-size:2rem;font-weight:700}
-input[type=date],input[type=text]{width:100%;min-height:52px;font:inherit;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--text)}
-.seg{display:flex;border:1px solid var(--line);border-radius:12px;overflow:hidden}
-.seg button{flex:1;min-width:0;min-height:52px;border:0;background:var(--card);color:var(--text);font:inherit;cursor:pointer;padding:0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.seg button.on{background:var(--pri);color:var(--pri-ink);font-weight:700}
+.flash .w{font-size:2.2rem;font-weight:800;color:var(--pri)}
+input[type=date],input[type=text]{width:100%;min-height:52px;font:inherit;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--text)}
+.seg{display:flex;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--bg);padding:3px;gap:3px}
+.seg button{flex:1;min-width:0;min-height:48px;border:0;background:transparent;color:var(--text);font:inherit;cursor:pointer;padding:0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-radius:11px;font-weight:500}
+.seg button.on{background:var(--card);color:var(--pri);font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.05)}
 table{width:100%;border-collapse:collapse}
-td,th{padding:8px 4px;border-bottom:1px solid var(--line);text-align:left}
-.big{font-size:2.6rem;font-weight:800;line-height:1.15}
-details summary{cursor:pointer;min-height:52px;display:flex;align-items:center;font-weight:600}
-.toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 16px;border-radius:10px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:30;max-width:90vw;text-align:center}
+td,th{padding:10px 6px;border-bottom:1px solid var(--line);text-align:left}
+.big{font-size:2.8rem;font-weight:900;line-height:1.15;color:var(--pri)}
+details summary{cursor:pointer;min-height:52px;display:flex;align-items:center;font-weight:700}
+.toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--text);color:var(--bg);padding:12px 20px;border-radius:14px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:30;max-width:90vw;text-align:center;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,0.15)}
 .toast.on{opacity:1}
+
+/* ---- Mascot & Cute UI ---- */
+.mascot-banner{display:flex;align-items:center;gap:14px;background:linear-gradient(135deg, var(--soft), var(--card));border:1px solid var(--line);border-radius:var(--r);padding:16px;margin:12px 0;box-shadow:var(--shadow)}
+.mascot-img{width:64px;height:64px;flex:none;animation:float 3s ease-in-out infinite}
+@directive{}
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
 /* ---- Friends (Phase A) ---- */
 .codein{text-transform:uppercase;letter-spacing:.3em;font-weight:700;text-align:center}
 .avgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(56px,1fr));gap:8px}
 .avopt{position:relative;display:block}
 .avopt input{position:absolute;opacity:0;width:1px;height:1px}
-.avopt span{display:grid;place-items:center;height:56px;font-size:1.7rem;border:2px solid var(--line);border-radius:12px;background:var(--card);cursor:pointer}
-.avopt input:checked+span{border-color:var(--pri);background:var(--soft)}
-.avopt input:focus-visible+span{outline:3px solid var(--pri);outline-offset:2px}
-.pchip{display:flex;align-items:center;gap:10px}
-.avbig{font-size:2rem;width:56px;height:56px;display:grid;place-items:center;background:var(--soft);border-radius:50%;flex:none}
-.lb{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--line)}
+.avopt span{display:grid;place-items:center;height:56px;font-size:1.7rem;border:2px solid var(--line);border-radius:14px;background:var(--card);cursor:pointer}
+.avopt input:checked+span{border-color:var(--pri);background:var(--soft);transform:scale(1.05)}
+.pchip{display:flex;align-items:center;gap:12px}
+.avbig{font-size:2.2rem;width:56px;height:56px;display:grid;place-items:center;background:var(--soft);border-radius:50%;flex:none}
+.lb{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
 .lb:last-child{border-bottom:0}
-.lb.me{background:var(--soft);border-radius:12px;padding:10px 8px;margin:0 -8px}
-.lb .rk{flex:0 0 34px;text-align:center;font-weight:700}
-.lb .av{flex:0 0 40px;height:40px;display:grid;place-items:center;font-size:1.5rem;background:var(--soft);border-radius:50%}
+.lb.me{background:var(--soft);border-radius:14px;padding:12px 10px;margin:0 -10px}
+.lb .rk{flex:0 0 34px;text-align:center;font-weight:800}
+.lb .av{flex:0 0 42px;height:42px;display:grid;place-items:center;font-size:1.5rem;background:var(--soft);border-radius:50%}
 .lb .lbm{flex:1;min-width:0}
 .lb .pts{flex:none;text-align:right;line-height:1.2}
-.lb .pts b{display:block;font-size:1.15rem}
-.lb .iconbtn{flex:none}
-.codebox{font:700 2rem/1.2 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.25em;text-align:center;padding:10px;margin:6px 0 10px;border:2px dashed var(--line);border-radius:12px;user-select:all}
+.lb .pts b{display:block;font-size:1.2rem;color:var(--pri)}
+.codebox{font:700 2rem/1.2 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.25em;text-align:center;padding:12px;margin:8px 0 12px;border:2px dashed var(--pri);border-radius:14px;background:var(--soft);user-select:all}
 .cheers{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .switch{display:flex;gap:12px;align-items:flex-start;min-height:52px;cursor:pointer}
 .switch input{width:26px;height:26px;flex:none;accent-color:var(--pri);margin-top:3px}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}.btn:active,.mode:active,.choice:active{transform:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}.btn:active,.mode:active,.choice:active{transform:none}.mascot-img{animation:none}}
 </style>
 </head>
 <body>
@@ -138,32 +143,30 @@ details summary{cursor:pointer;min-height:52px;display:flex;align-items:center;f
 <script>
 'use strict';
 /* =========================================================
-   1) EXAM CONFIG — change counts / time / options here
+   1) EXAM CONFIG
    ========================================================= */
 const CONFIG = {
   totalPoints: 100,
-  totalMinutes: 180,                 // full mock exam time (for the full 100-item spec)
+  totalMinutes: 180,
   parts: [
     { id: 1, en: 'Listening',         th: 'การฟัง',                 count: 30, minutes: 45, icon: '🎧' },
     { id: 2, en: 'Reading',           th: 'การอ่าน',                count: 30, minutes: 75, icon: '📖' },
     { id: 3, en: 'Structure & Usage', th: 'โครงสร้างและการใช้ภาษา', count: 40, minutes: 60, icon: '✍️' }
   ],
-  practiceSize: 10,                  // questions per quick practice
-  maxPlaysTimed: 2,                  // audio plays per item in mock/timed part test (0 = unlimited)
-  maxPlaysPractice: 0,               // audio plays in practice/review (0 = unlimited)
-  ttsRate: 0.95,                     // speech speed for synthesized voice
+  practiceSize: 10,
+  maxPlaysTimed: 2,
+  maxPlaysPractice: 0,
+  ttsRate: 0.90,                     // Slightly slower for clearer pronunciation
   planMaxDays: 120,
-  leitnerDays: [1, 2, 4, 8, 16],     // review gap (days) for Leitner box 1..5
+  leitnerDays: [1, 2, 4, 8, 16],
   newCardsPerDay: 10,
   questionsUrl: 'questions.json',
-
-  /* ---- Friends / squads (online) ---- */
-  apiUrl: 'https://script.google.com/macros/s/AKfycbyReICI54BJFphIwKURWTead_Mf5k8OgodViS_gitqZNQLSIo1DmdwgIAHqjBqAlP8BBQ/exec',                        // ← PASTE YOUR APPS SCRIPT WEB APP URL HERE (e.g. 'https://script.google.com/macros/s/.../exec')
+  apiUrl: '',                        // ← Paste your Apps Script Web App URL here
   social: {
-    timeoutMs: 8000,                 // per request
-    cacheMs: 30000,                  // in-memory cache of squad data
-    syncBatch: 150,                  // answers per syncPractice call (server max 200)
-    pendingMax: 600,                 // max answers kept in the offline queue
+    timeoutMs: 8000,
+    cacheMs: 30000,
+    syncBatch: 150,
+    pendingMax: 600,
     nameMax: 16,
     avatars: ['🐯','🐼','🦊','🐸','🐧','🦉','🐙','🦄','🐨','🐶','🐱','🐰','🐻','🐵','🐳','🦖'],
     cheers: [
@@ -178,7 +181,7 @@ const CONFIG = {
 };
 
 /* =========================================================
-   2) UI TEXT
+   2) UI TEXT (I18N)
    ========================================================= */
 const I18N = {
   en: {
@@ -196,7 +199,7 @@ const I18N = {
     start:'Start', mockRules:'Time limit: {0} minutes. No feedback until you submit. Auto-submits when time runs out.',
     mockScaled:'Your bank has {0} of {1} questions, so time and score are scaled proportionally.',
     qOf:'Question {0} of {1}', exit:'Exit', overview:'Question overview',
-    playsLeft:'Plays left: {0}/{1}', unlimited:'Unlimited replays (practice)', ttsNote:'synthesized voice',
+    playsLeft:'Plays left: {0}/{1}', unlimited:'Unlimited replays (practice)', ttsNote:'natural voice',
     replay:'Replay', play:'Play', pause:'Pause', resume2:'Resume', stop:'Stop',
     back:'Back', flag:'Flag', next:'Next', submit:'Submit', finish:'Finish', answeredN:'Answered {0}/{1}', close:'Close',
     unanswered:'Not answered', correct:'Correct', incorrect:'Incorrect', answerIs:'Answer:', transcript:'Show transcript',
@@ -231,11 +234,10 @@ const I18N = {
     navHome:'Home', navProgress:'Stats', navPlan:'Plan', navCards:'Words', navSettings:'Settings',
     mode_practice:'Quick practice', mode_part:'Timed part test', mode_mock:'Mock exam', mode_review:'Mistake review', mode_topic:'Topic practice',
     noTts:'Speech is not supported in this browser', noPlays:'No plays left', saveFail:'Could not save (storage full?)',
-    /* ---- Phase A: friends ---- */
     navFriends:'Friends', navMore:'More', more:'More',
     morePlanD:'Daily checklist until exam day', moreSettingsD:'Language, theme, backup, friends identity',
     fTitle:'Friends', fIntro:'Study at your own time, compete together. Squad points come only from answering exam questions.',
-    fNoApi:'The friends server is not set up yet. Put your Apps Script Web App URL in CONFIG.apiUrl (see the setup guide). Everything else works offline.',
+    fNoApi:'The friends server is not set up yet. Put your Apps Script Web App URL in CONFIG.apiUrl. Everything else works offline.',
     fOffline:'Friends features need the internet. You are offline right now. Practice still works, and your results will be sent to your squad when you are back online.',
     practiceNow:'Keep practicing', retry:'Try again', loadingF:'Loading…',
     profileTitle:'Create your player profile', profileEdit:'Edit profile',
@@ -274,14 +276,14 @@ const I18N = {
     idForget:'Remove identity from this phone', idForgetConfirm:'Remove it? Without an exported identity file you cannot get this player back.',
     saved:'Saved',
     err_NO_API:'Server not configured', err_OFFLINE:'You are offline. Practice still works.', err_NETWORK:'Could not reach the server. Please try again.',
-    err_BAD_JSON:'Invalid request', err_BAD_INPUT:'Invalid request', err_UNKNOWN_ACTION:'This feature is not on the server yet (update Code.gs).',
+    err_BAD_JSON:'Invalid request', err_BAD_INPUT:'Invalid request', err_UNKNOWN_ACTION:'This feature is not on the server yet.',
     err_AUTH:'Identity check failed. Import your identity file again.', err_NOT_REGISTERED:'Player not found. Please create your profile again.',
     err_NAME_INVALID:'Please enter a nickname (1–16 characters).', err_AVATAR_INVALID:'Please choose an avatar.',
     err_SQUAD_NAME_INVALID:'Squad name is too long (max 20).', err_BAD_CODE:'Squad codes have 5 letters/numbers.',
     err_SQUAD_NOT_FOUND:'No squad with this code.', err_SQUAD_FULL:'This squad is full.', err_TOO_MANY_SQUADS:'You can be in up to 3 squads.',
     err_NOT_MEMBER:'You are not in this squad.', err_BUSY:'Server is busy. Please try again.', err_RATE_LIMIT:'Too many requests. Please wait a minute.',
     err_CHEER_LIMIT:'You have sent enough cheers today. Try again tomorrow.', err_CHEER_SELF:"You can't cheer yourself, but keep going!",
-    err_NOT_SETUP:'Server not set up (run setup()).', err_SERVER:'Server error. Please try again later.'
+    err_NOT_SETUP:'Server not set up.', err_SERVER:'Server error. Please try again later.'
   },
   th: {
     hello:'พร้อมฝึกหรือยัง?', tagline:'เตรียมสอบภาษาอังกฤษแนว K-StEP วันละนิด',
@@ -298,7 +300,7 @@ const I18N = {
     start:'เริ่มสอบ', mockRules:'เวลาสอบ {0} นาที ไม่มีเฉลยระหว่างทำ และส่งคำตอบอัตโนมัติเมื่อหมดเวลา',
     mockScaled:'คลังข้อสอบมี {0} จาก {1} ข้อ จึงปรับเวลาและคะแนนตามสัดส่วน',
     qOf:'ข้อ {0} จาก {1}', exit:'ออก', overview:'ภาพรวมข้อสอบ',
-    playsLeft:'ฟังได้อีก {0}/{1} ครั้ง', unlimited:'ฟังซ้ำได้ไม่จำกัด (โหมดฝึก)', ttsNote:'เสียงสังเคราะห์',
+    playsLeft:'ฟังได้อีก {0}/{1} ครั้ง', unlimited:'ฟังซ้ำได้ไม่จำกัด (โหมดฝึก)', ttsNote:'เสียงธรรมชาติ',
     replay:'ฟังใหม่', play:'เล่น', pause:'หยุดชั่วคราว', resume2:'เล่นต่อ', stop:'หยุด',
     back:'ก่อนหน้า', flag:'ปักธง', next:'ถัดไป', submit:'ส่งคำตอบ', finish:'ดูผล', answeredN:'ตอบแล้ว {0}/{1}', close:'ปิด',
     unanswered:'ไม่ได้ตอบ', correct:'ถูกต้อง', incorrect:'ไม่ถูกต้อง', answerIs:'คำตอบ:', transcript:'ดูบทพูด (Transcript)',
@@ -326,18 +328,17 @@ const I18N = {
     backup:'สำรองข้อมูล', backupHelp:'ความคืบหน้าเก็บไว้ในเครื่องนี้เท่านั้น ควรส่งออกไฟล์สำรองเป็นประจำ',
     exportBtn:'ส่งออกความคืบหน้า (JSON)', importBtn:'นำเข้าไฟล์สำรอง', importConfirm:'แทนที่ความคืบหน้าปัจจุบันทั้งหมดด้วยไฟล์นี้?',
     imported:'นำเข้าข้อมูลแล้ว', importBad:'ไฟล์สำรองไม่ถูกต้อง', bank:'คลังข้อสอบ', vocabN:'คำศัพท์ {0} คำ',
-    reloadBank:'โหลดข้อสอบใหม่', reloaded:'โหลดข้อสอบใหม่แล้ว', examCfg:'ค่าการสอบ', total:'รวม',
+    reloadBank:'โหลดข้อสอบใหม่', reloaded:'Questions reloaded', examCfg:'Exam settings', total:'รวม',
     questions:'ข้อ', points:'คะแนน', minutes:'นาที', count:'จำนวนข้อ', time:'เวลา',
     reset:'ล้างความคืบหน้าทั้งหมด', resetConfirm:'ลบความคืบหน้าทั้งหมดในเครื่องนี้? ย้อนกลับไม่ได้',
     disclaimer:'เครื่องมือฝึกเท่านั้น ไม่มีส่วนเกี่ยวข้องกับ มจพ. ข้อสอบตัวอย่างแต่งขึ้นใหม่ ไม่ได้มาจากข้อสอบจริง',
     navHome:'หน้าแรก', navProgress:'สถิติ', navPlan:'แผน', navCards:'คำศัพท์', navSettings:'ตั้งค่า',
     mode_practice:'ฝึกเร็ว', mode_part:'สอบจับเวลารายพาร์ท', mode_mock:'ข้อสอบจำลอง', mode_review:'ทบทวนข้อผิด', mode_topic:'ฝึกตามหัวข้อ',
     noTts:'เบราว์เซอร์นี้ไม่รองรับการอ่านออกเสียง', noPlays:'ใช้สิทธิ์ฟังครบแล้ว', saveFail:'บันทึกไม่ได้ (พื้นที่เต็ม?)',
-    /* ---- Phase A: friends ---- */
     navFriends:'เพื่อน', navMore:'เพิ่มเติม', more:'เพิ่มเติม',
     morePlanD:'เช็กลิสต์รายวันจนถึงวันสอบ', moreSettingsD:'ภาษา ธีม สำรองข้อมูล ตัวตนสำหรับเพื่อน',
     fTitle:'เพื่อน', fIntro:'ต่างคนต่างฝึกตามเวลาที่สะดวก แต่แข่งกันได้ คะแนนกลุ่มมาจากการตอบข้อสอบเท่านั้น',
-    fNoApi:'ยังไม่ได้ตั้งค่าเซิร์ฟเวอร์เพื่อน ให้ใส่ URL ของ Apps Script Web App ใน CONFIG.apiUrl (ดูคู่มือ) ฟีเจอร์อื่นยังใช้ออฟไลน์ได้ตามปกติ',
+    fNoApi:'ยังไม่ได้ตั้งค่าเซิร์ฟเวอร์เพื่อน ให้ใส่ URL ของ Apps Script Web App ใน CONFIG.apiUrl ฟีเจอร์อื่นยังใช้ออฟไลน์ได้ตามปกติ',
     fOffline:'ฟีเจอร์เพื่อนต้องใช้อินเทอร์เน็ต ตอนนี้คุณออฟไลน์อยู่ ฝึกต่อได้ตามปกติ และผลจะถูกส่งเข้ากลุ่มเมื่อกลับมาออนไลน์',
     practiceNow:'ฝึกต่อเลย', retry:'ลองอีกครั้ง', loadingF:'กำลังโหลด…',
     profileTitle:'สร้างโปรไฟล์ผู้เล่น', profileEdit:'แก้ไขโปรไฟล์',
@@ -376,14 +377,14 @@ const I18N = {
     idForget:'ลบตัวตนออกจากเครื่องนี้', idForgetConfirm:'ลบเลยไหม? ถ้าไม่ได้ส่งออกไฟล์ตัวตนไว้ จะกู้ผู้เล่นนี้คืนไม่ได้',
     saved:'บันทึกแล้ว',
     err_NO_API:'ยังไม่ได้ตั้งค่าเซิร์ฟเวอร์', err_OFFLINE:'ออฟไลน์อยู่ ฝึกต่อได้ตามปกติ', err_NETWORK:'ติดต่อเซิร์ฟเวอร์ไม่ได้ ลองใหม่อีกครั้ง',
-    err_BAD_JSON:'คำขอไม่ถูกต้อง', err_BAD_INPUT:'คำขอไม่ถูกต้อง', err_UNKNOWN_ACTION:'เซิร์ฟเวอร์ยังไม่มีฟีเจอร์นี้ (อัปเดต Code.gs)',
+    err_BAD_JSON:'คำขอไม่ถูกต้อง', err_BAD_INPUT:'คำขอไม่ถูกต้อง', err_UNKNOWN_ACTION:'เซิร์ฟเวอร์ยังไม่มีฟีเจอร์นี้',
     err_AUTH:'ยืนยันตัวตนไม่ผ่าน ลองนำเข้าไฟล์ตัวตนอีกครั้ง', err_NOT_REGISTERED:'ไม่พบผู้เล่น กรุณาสร้างโปรไฟล์ใหม่',
     err_NAME_INVALID:'กรุณาใส่ชื่อเล่น 1–16 ตัวอักษร', err_AVATAR_INVALID:'กรุณาเลือกอวาตาร์',
     err_SQUAD_NAME_INVALID:'ชื่อกลุ่มยาวเกินไป (ไม่เกิน 20)', err_BAD_CODE:'รหัสกลุ่มต้องมี 5 ตัวอักษร/ตัวเลข',
     err_SQUAD_NOT_FOUND:'ไม่พบกลุ่มที่ใช้รหัสนี้', err_SQUAD_FULL:'กลุ่มนี้เต็มแล้ว', err_TOO_MANY_SQUADS:'อยู่ได้สูงสุด 3 กลุ่ม',
     err_NOT_MEMBER:'คุณไม่ได้อยู่ในกลุ่มนี้', err_BUSY:'เซิร์ฟเวอร์ไม่ว่าง ลองใหม่อีกครั้ง', err_RATE_LIMIT:'ส่งคำขอถี่เกินไป รอสักครู่',
     err_CHEER_LIMIT:'วันนี้ส่งกำลังใจครบแล้ว พรุ่งนี้ส่งใหม่ได้', err_CHEER_SELF:'เชียร์ตัวเองไม่ได้ แต่สู้ ๆ นะ!',
-    err_NOT_SETUP:'เซิร์ฟเวอร์ยังไม่ได้ตั้งค่า (รัน setup())', err_SERVER:'เซิร์ฟเวอร์ขัดข้อง ลองใหม่ภายหลัง'
+    err_NOT_SETUP:'เซิร์ฟเวอร์ยังไม่ได้ตั้งค่า', err_SERVER:'เซิร์ฟเวอร์ขัดข้อง ลองใหม่ภายหลัง'
   }
 };
 
@@ -482,19 +483,39 @@ function applyTheme(){
   const m = S.settings.theme;
   const dark = m === 'dark' || (m === 'system' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
   document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-  $('meta[name=theme-color]').content = dark ? '#0e1217' : '#1f5fbf';
+  $('meta[name=theme-color]').content = dark ? '#0b0f17' : '#1f5fbf';
 }
 
 /* =========================================================
-   6) HOME / PRACTICE PICK / MOCK INTRO / MORE
+   6) HOME / PRACTICE PICK / MOCK INTRO / MORE (WITH CUTE MASCOT)
    ========================================================= */
+function cuteOwlSVG(){
+  return `<svg class="mascot-img" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="50" cy="52" r="36" fill="#60a5fa"/>
+    <circle cx="50" cy="55" r="30" fill="#93c5fd"/>
+    <!-- Ears -->
+    <path d="M24 32L35 44H20Z" fill="#3b82f6"/>
+    <path d="M76 32L65 44H80Z" fill="#3b82f6"/>
+    <!-- Eyes -->
+    <circle cx="38" cy="48" r="10" fill="#fff"/>
+    <circle cx="62" cy="48" r="10" fill="#fff"/>
+    <circle cx="38" cy="48" r="4" fill="#1e293b"/>
+    <circle cx="62" cy="48" r="4" fill="#1e293b"/>
+    <!-- Beak -->
+    <path d="M50 56L45 64H55Z" fill="#f59e0b"/>
+    <!-- Graduation Cap / Ribbon -->
+    <path d="M30 26L50 18L70 26L50 34Z" fill="#1e293b"/>
+    <rect x="48" y="32" width="4" height="8" fill="#1e293b"/>
+  </svg>`;
+}
+
 function vHome(){
   const today = dstr();
   const mist = Object.keys(S.mistakes).filter(id => QMAP.has(id)).length;
   const due = dueCards().length;
   const saved = loadSession();
   const ex = S.plan.examDate ? diffDays(today, S.plan.examDate) : null;
-  let h = `<h1>${t('hello')}</h1><p class="muted">${t('tagline')}</p>
+  let h = `<div class="mascot-banner">${cuteOwlSVG()}<div><h1>${t('hello')}</h1><p class="muted">${t('tagline')}</p></div></div>
   <div class="stats">${stat(t('streak'), '🔥 ' + calcStreak())}${stat(t('examIn'), ex !== null && ex >= 0 ? t('daysN', ex) : t('setDate'), "go('plan')")}</div>`;
   if(bankErr) h += `<div class="card bad-t">${t('bankErr')} (${esc(bankErr)})</div>`;
   if(saved) h += `<button class="mode" style="border:2px solid var(--pri)" onclick="resume()"><span class="ic">⏯️</span><span><b>${t('resume')}</b><span class="muted">${t('mode_' + saved.mode)} · ${t('answeredN', Object.keys(saved.answers).length, saved.ids.length)}</span></span></button>`;
@@ -536,7 +557,7 @@ function vMore(){
 }
 
 /* =========================================================
-   7) SESSIONS (practice / part / mock / review / topic)
+   7) SESSIONS
    ========================================================= */
 function saveSession(){ if(session) localStorage.setItem(SESSION_KEY, JSON.stringify(session)); else localStorage.removeItem(SESSION_KEY); }
 function loadSession(){
@@ -569,7 +590,6 @@ function resume(){
 function quitSession(){ if(!confirm(t('quitConfirm'))) return; stopAudio(); stopTimer(); session = null; saveSession(); go('home'); }
 function startTopic(i){ const w = WEAK[i]; if(w) startSession('topic', null, w.k); }
 
-/* ---------- Timer ---------- */
 function startTimer(){ stopTimer(); if(session && session.endAt) timerId = setInterval(updateTimer, 1000); }
 function stopTimer(){ if(timerId){ clearInterval(timerId); timerId = null; } }
 function updateTimer(){
@@ -579,7 +599,6 @@ function updateTimer(){
   if(left <= 0){ stopTimer(); toast(t('timeUp')); submit(true); }
 }
 
-/* ---------- Question screen ---------- */
 const isListening = q => q.part === 1 || !!q.audio || !!q.script;
 function vExam(){
   const s = session, q = curQ(), p = partById(q.part), n = s.ids.length, i = s.idx;
@@ -636,7 +655,7 @@ function jump(k){ stopAudio(); session.idx = k; showGrid = false; saveSession();
 function toggleGrid(){ showGrid = !showGrid; render(); }
 function toggleFlag(){ const id = curQ().id; if(session.flags[id]) delete session.flags[id]; else session.flags[id] = true; saveSession(); render(); }
 
-/* ---------- Audio: <audio> file or speechSynthesis fallback ---------- */
+/* ---------- Improved Voice (Less robotic) ---------- */
 let audioEl = null, audioState = 'idle', audioKind = 'tts', ttsToken = 0;
 function maxPlays(){ return (session.mode === 'mock' || session.mode === 'part') ? CONFIG.maxPlaysTimed : CONFIG.maxPlaysPractice; }
 function audioLabel(){
@@ -672,11 +691,14 @@ function startPlay(){
     audioEl.play().then(() => setAudio('playing')).catch(fallback);
   } else speakText(q.script || q.question);
 }
+
+// Better voice preference selector to avoid ultra-robotic system default if possible
 function enVoices(){
   if(!('speechSynthesis' in window)) return [];
   const all = speechSynthesis.getVoices();
-  const us = all.filter(v => /^en[-_]US/i.test(v.lang));
-  return us.length ? us : all.filter(v => /^en/i.test(v.lang));
+  const us = all.filter(v => /^en[-_]US/i.test(v.lang) || /^en[-_]GB/i.test(v.lang));
+  const preferred = us.filter(v => /google|natural|samantha|microsoft|enhanced|zira|david/i.test(v.name));
+  return preferred.length ? preferred : (us.length ? us : all.filter(v => /^en/i.test(v.lang)));
 }
 function speakText(text){
   if(!('speechSynthesis' in window)){ toast(t('noTts')); setAudio('idle'); return; }
@@ -692,8 +714,8 @@ function speakText(text){
   parts.forEach((pt, k) => {
     const u = new SpeechSynthesisUtterance(pt.text);
     u.lang = 'en-US'; u.rate = CONFIG.ttsRate;
-    if(pt.who === 'W'){ u.pitch = 1.2; if(voices[1] || voices[0]) u.voice = voices[1] || voices[0]; }
-    else { u.pitch = pt.who === 'M' ? 0.85 : 1; if(voices[0]) u.voice = voices[0]; }
+    if(pt.who === 'W'){ u.pitch = 1.15; if(voices[1] || voices[0]) u.voice = voices[1] || voices[0]; }
+    else { u.pitch = pt.who === 'M' ? 0.9 : 1; if(voices[0]) u.voice = voices[0]; }
     if(k === parts.length - 1) u.onend = () => { if(tok === ttsToken) setAudio('idle'); };
     speechSynthesis.speak(u);
   });
@@ -706,7 +728,6 @@ function stopAudio(){
   audioState = 'idle';
 }
 
-/* ---------- Submit & scoring ---------- */
 function toeicRange(frac){
   const mid = 10 + frac * 980;
   return [Math.max(10, Math.round((mid - 60) / 5) * 5), Math.min(990, Math.round((mid + 60) / 5) * 5)];
@@ -742,7 +763,7 @@ function submit(auto){
   if(s.mode === 'practice' || s.mode === 'part') planAuto('practice:' + s.part);
   else if(s.mode === 'mock' || s.mode === 'review') planAuto(s.mode);
   save();
-  queuePractice(items);                     // friends: queue answers for server-side checking
+  queuePractice(items);
   lastResult = { ...res, items, dur:Date.now() - s.startedAt, auto:!!auto };
   session = null; saveSession(); resFilter = 'wrong';
   go('result');
@@ -784,9 +805,6 @@ function vResult(){
   return h;
 }
 
-/* =========================================================
-   8) PROGRESS DASHBOARD
-   ========================================================= */
 function calcStreak(){ let d = dstr(); if(!S.activity[d]) d = addDays(d, -1); let n = 0; while(S.activity[d]){ n++; d = addDays(d, -1); } return n; }
 function partAcc(){ const m = {}; S.attempts.forEach(a => Object.entries(a.perPart || {}).forEach(([k, v]) => { const x = m[k] || (m[k] = { c:0, n:0 }); x.c += v.c; x.n += v.n; })); return m; }
 function weakTopics(){
@@ -821,9 +839,6 @@ function vProgress(){
   return h;
 }
 
-/* =========================================================
-   9) STUDY PLAN
-   ========================================================= */
 function planTasks(i, total){
   const left = total - i, T = (k, en, th, act) => ({ k, en, th, act });
   const cards = T('cards', 'Flashcards: due cards', 'ทบทวนแฟลชการ์ดที่ถึงกำหนด', 'cards');
@@ -897,9 +912,6 @@ function vPlan(){
   return h;
 }
 
-/* =========================================================
-   10) FLASHCARDS (Leitner)
-   ========================================================= */
 function syncCards(){
   const today = dstr();
   let added = Object.values(S.cards).filter(c => c.added === today).length;
@@ -953,9 +965,6 @@ function vCards(){
     <p class="muted">${t('leitnerHelp', CONFIG.leitnerDays.join(', '))}</p><p class="muted">${t('newCards', unseen, CONFIG.newCardsPerDay)}</p></div>`;
 }
 
-/* =========================================================
-   11) SETTINGS / BACKUP
-   ========================================================= */
 function setLang(l){ S.settings.lang = l; save(); render(); }
 function setTheme(m){ S.settings.theme = m; save(); applyTheme(); render(); }
 async function saveJsonFile(name, text){
@@ -1008,9 +1017,6 @@ function vSettings(){
   <p class="muted">${t('disclaimer')}</p>`;
 }
 
-/* =========================================================
-   12) FRIENDS / SQUADS — Phase A (online only, async, no polling)
-   ========================================================= */
 const ID_KEY = 'kstep-identity-v1', PENDING_KEY = 'kstep-pending-v1', JOIN_KEY = 'kstep-join-code', SEL_KEY = 'kstep-squad-sel';
 const CODE_RE = /^[A-HJ-NP-Z2-9]{5}$/;
 let ID = loadIdentity();
@@ -1025,7 +1031,6 @@ function apiError(code){ const e = new Error(code); e.code = code; return e; }
 function errMsg(e){ const c = (e && e.code) || 'SERVER', k = 'err_' + c, s = t(k); return s === k ? t('err_SERVER') + ' (' + c + ')' : s; }
 const socialReady = () => !!(CONFIG.apiUrl && ID && ID.registered);
 
-/* Central API call: POST text/plain (no CORS preflight), 8s timeout, 1 retry on network/busy */
 async function api(action, payload = {}, retries = 1){
   if(!CONFIG.apiUrl) throw apiError('NO_API');
   if(!navigator.onLine) throw apiError('OFFLINE');
@@ -1042,7 +1047,7 @@ async function api(action, payload = {}, retries = 1){
       throw apiError((j && j.error) || 'SERVER');
     }catch(e){
       clearTimeout(tm);
-      if(e.code && e.code !== 'NETWORK' && e.code !== 'BUSY') throw e;   // real server answer → do not retry
+      if(e.code && e.code !== 'NETWORK' && e.code !== 'BUSY') throw e;
       last = e.code ? e : apiError('NETWORK');
     }
     if(i < retries) await new Promise(res => setTimeout(res, 700));
@@ -1050,7 +1055,6 @@ async function api(action, payload = {}, retries = 1){
   throw navigator.onLine ? last : apiError('OFFLINE');
 }
 
-/* ---- Offline queue of answered questions (server re-checks every answer) ---- */
 function getPending(){ try{ const a = JSON.parse(localStorage.getItem(PENDING_KEY) || '[]'); return Array.isArray(a) ? a : []; }catch(e){ return []; } }
 function setPending(a){ if(a.length) localStorage.setItem(PENDING_KEY, JSON.stringify(a.slice(-CONFIG.social.pendingMax))); else localStorage.removeItem(PENDING_KEY); }
 function queuePractice(items){
@@ -1090,7 +1094,6 @@ async function flushPending(silent){
   if(view === 'friends') render();
 }
 
-/* ---- Loading squad data (only on open / refresh / after actions) ---- */
 async function friendsEnter(force){
   if(!socialReady() || !navigator.onLine){ if(view === 'friends') render(); return; }
   await flushPending(true);
@@ -1123,7 +1126,6 @@ async function fAction(fn){
   F.busy = false; if(view === 'friends') render();
 }
 
-/* ---- Actions ---- */
 async function doRegister(){
   const name = cleanName($('#fName').value, CONFIG.social.nameMax);
   const av = (document.querySelector('input[name=av]:checked') || {}).value;
@@ -1204,7 +1206,6 @@ function forgetIdentity(){
   FCACHE = {}; F.data = null; render();
 }
 
-/* ---- Views ---- */
 function relTime(ms){
   ms = Math.max(0, ms || 0);
   const s = Math.round(ms / 1000);
@@ -1342,13 +1343,9 @@ function socialSettings(){
     <input type="file" id="idFile" accept="application/json,.json" hidden onchange="if(this.files[0])importIdentity(this.files[0]);this.value=''"></div>`;
 }
 
-/* =========================================================
-   13) INIT
-   ========================================================= */
 (async function init(){
   applyTheme();
   if(window.matchMedia){ const mq = matchMedia('(prefers-color-scheme: dark)'); if(mq.addEventListener) mq.addEventListener('change', applyTheme); }
-  // Invite link: ?squad=XXXXX → remember, clean URL, open Friends
   const jq = new URLSearchParams(location.search).get('squad');
   if(jq !== null){
     const c = jq.toUpperCase().replace(/[^A-Z0-9]/g, '');
@@ -1360,7 +1357,6 @@ function socialSettings(){
   syncCards();
   if(view === 'friends') go('friends'); else render();
   if('speechSynthesis' in window){ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices(); }
-  // Event-driven only (no polling): send queued answers when the phone comes back online
   window.addEventListener('online', () => { flushPending(true); if(view === 'friends') render(); });
   window.addEventListener('offline', () => { if(view === 'friends') render(); });
   if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
